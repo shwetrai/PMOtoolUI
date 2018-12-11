@@ -1,0 +1,356 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>SIS On-Boarding</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script .col-sm-3
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="/js/controller.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
+
+<style>
+hr {
+	display: block;
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+	margin-left: auto;
+	margin-right: auto;
+	border-style: inset;
+	border-width: 1px;
+}
+</style>
+</head>
+<body>
+	<div class="container" ng-app="app">
+		<div class="col-sm-24" align="center">
+			<h2 style="color: blue">Welcome to Service Integration Squad -
+				On Boarding</h2>
+		</div>
+		<hr>
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/onboarding/info">SIS Onboarding</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a href="/onboarding/info">Dashboard</a></li>
+					<li class="active"><a href="/onboarding">EditUser</a></li>
+					<li><a href="/createrecord">CreateUser</a></li>
+				</ul>
+			</div>
+		</nav>
+		<hr>
+		<div ng-controller="cidgetcontroller" class="col-sm-12">
+			<form class="form-horizontal" name="cidForm"
+				ng-submit="getuserinfo()">
+				<div class="form-inline" style="border: thin">
+					<label class="control-label col-sm-2" for="CID">Provide
+						resource CID: </label>
+					<div class="col-sm-3">
+						<input type="text" class="form-control" name="cid" id="CID"
+							placeholder="Enter resource CID" ng-model="cid" />
+
+					</div>
+					<div>
+						<button id="btn-id" type="submit" class="btn btn-primary">Get
+							Resource Info</button>
+					</div>				<div class="col-sm10">
+					<p class="bg-success text-white"></p>
+				</div>
+				</div>
+			</form>
+			<hr />
+			<div class="col-sm-offset-0 col-sm-18" ng-show="visible">
+				<div>
+					<button id="btn-id" type="submit" class="btn btn-info"
+						ng-hide="editing" ng-click="editing = true">Edit Data</button>
+
+				</div>
+				
+				<div align="right">
+    					<strong style="color:green"> {{postResultMessage}}</strong>
+  				</div>
+				<form class="form-horizontal" name="statusUpdateForm"
+					ng-submit="updateuserinfo()" ng-init="reloaduserinfo()">
+					<button id="btn-id" type="submit" class="btn btn-success"
+						ng-show="editing" ng-click="editing = false">Update Info</button>
+						<hr>
+					<table border="2" width="100%" class="table table-striped">
+						<tr>
+							<td bgcolor="lightgrey" align="center"><b>CID</b></td>
+							<td align="center"><span ng-hide="editing">{{response.cid
+									}}</span> <input ng-show="editing" type="text"
+								class="inputbox form-control" name="cid" id="CID"
+								placeholder="Enter resource CID" ng-model="response.cid" /></td>
+							<td bgcolor="lightgrey" align="center"><b>Name</b></td>
+							<td align="center"><span ng-hide="editing">{{response.name}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="name" id="name" placeholder="Enter resource name"
+								ng-model="response.name" /></td>
+						</tr>
+						<tr>
+							<td bgcolor="lightgrey" align="center"><b>Role</b></td>
+							<td align="center"><span ng-hide="editing">{{response.role}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="role" id="role" placeholder="Enter resource role"
+								ng-model="response.role" /></td>
+							<td align="center" bgcolor="lightgrey"><b>Band</b></td>
+							<td align="center"><span ng-hide="editing">{{response.band}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="band" id="band" placeholder="Enter resource band"
+								ng-model="response.band" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Base Location</b></td>
+							<td align="center"><span ng-hide="editing">{{response.blocation}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="blocation" id="blocation"
+								placeholder="Enter resource base location"
+								ng-model="response.blocation" /></td>
+							<td align="center" bgcolor="lightgrey"><b>Current
+									Location</b></td>
+							<td align="center"><span ng-hide="editing">{{response.clocation}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="clocation" id="clocation"
+								placeholder="Enter resource current location"
+								ng-model="response.clocation" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Release</b></td>
+							<td align="center"><span ng-hide="editing">{{response.release}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="release" id="release"
+								placeholder="Enter release name"
+								ng-model="response.release" /></td>
+							<td align="center" bgcolor="lightgrey"><b>Cell
+									</b></td>
+							<td align="center"><span ng-hide="editing">{{response.cell}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="cell" id="cell"
+								placeholder="Enter resource cell name"
+								ng-model="response.cell" /></td>
+						</tr>
+						<tr>
+							<td align="left" colspan="4" class="bg-info text-white"><strong style="color:blue">Tooling Status</strong>
+							
+							</td>
+						</tr>
+						<!----> <tr >
+							<th align="center" width="20%">Status Item</th>
+							<th align="center" width="30%">Status</th>
+							<th align="center" width="20%">Status Item</th>
+							<th align="center" width="30%">Status</th>
+						</tr> 
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>VDI</b></td>
+							<td align="center"><span ng-hide="editing">{{response.vdi}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="vdi" id="vdi" placeholder="Yes/No"
+								ng-model="response.vdi" /></td>
+							<td align="center" bgcolor="lightgrey"><b>Ready API</b></td>
+							<td align="center"><span ng-hide="editing">{{response.readyAPI}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="readyAPI" id="readyAPI"
+								placeholder="Enter resource readyAPI"
+								ng-model="response.readyAPI" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>ADC</b></td>
+							<td align="center"><span ng-hide="editing">{{response.adc}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="adc" id="adc" placeholder="Enter resource adc"
+								ng-model="response.adc" /></td>
+							<td align="center" bgcolor="lightgrey"><b>ARD</b></td>
+							<td align="center"><span ng-hide="editing">{{response.ard}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="ard" id="ard" placeholder="Enter resource ard"
+								ng-model="response.ard" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Webex</b></td>
+							<td align="center"><span ng-hide="editing">{{response.webex}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="webex" id="webex" placeholder="Enter resource webex"
+								ng-model="response.webex" /></td>
+							<td align="center" bgcolor="lightgrey"><b>RTC</b></td>
+							<td align="center"><span ng-hide="editing">{{response.rtc}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="rtc" id="rtc" placeholder="Enter resource rtc"
+								ng-model="response.rtc" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Jenkins</b></td>
+							<td align="center"><span ng-hide="editing">{{response.jenkins}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="jenkins" id="jenkins" placeholder="Enter resource jenkins"
+								ng-model="response.jenkins" /></td>
+							<td align="center" bgcolor="lightgrey"><b>ALM</b></td>
+							<td align="center"><span ng-hide="editing">{{response.alm}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="alm" id="alm" placeholder="Enter resource alm"
+								ng-model="response.alm" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>IIB</b></td>
+							<td align="center"><span ng-hide="editing">{{response.iib}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="iib" id="iib" placeholder="Enter resource iib"
+								ng-model="response.iib" /></td>
+							<td align="center" bgcolor="lightgrey"><b>DB2</b></td>
+							<td align="center"><span ng-hide="editing">{{response.db2}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="db2" id="db2" placeholder="Enter resource db2"
+								ng-model="response.db2" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>DB2 Explorer</b></td>
+							<td align="center"><span ng-hide="editing">{{response.db2explorer}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="db2explorer" id="db2explorer"
+								placeholder="Enter resource db2" ng-model="response.db2explorer" />
+							</td>
+							<td align="center" bgcolor="lightgrey"><b>MQ</b></td>
+							<td align="center"><span ng-hide="editing">{{response.mq}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="mq" id="mq" placeholder="Enter resource mq"
+								ng-model="response.mq" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>MQ Explorer</b></td>
+							<td align="center"><span ng-hide="editing">{{response.mqexplorer}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="mqexplorer" id="mqexplorer"
+								placeholder="Enter resource mqexplorer"
+								ng-model="response.mqexplorer" /></td>
+							<td align="center" bgcolor="lightgrey"><b>Putty</b></td>
+							<td align="center"><span ng-hide="editing">{{response.putty}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="putty" id="putty" placeholder="Enter resource mqexplorer"
+								ng-model="response.putty" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Winscp</b></td>
+							<td align="center"><span ng-hide="editing">{{response.winscp}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="winscp" id="winscp" placeholder="Enter resource winscp"
+								ng-model="response.winscp" /></td>
+							<td align="center" bgcolor="lightgrey"><b></b></td>
+							<td align="center"></td>
+						</tr>
+						<tr>
+							<td align="left" colspan="4" class="bg-info text-white"><strong style="color:blue">Induction Status</strong>
+							</td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Client Induction</b></td>
+							<td align="center"><span ng-hide="editing">{{response.clientInd}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="clientInd" id="clientInd"
+								placeholder="Enter status"
+								ng-model="response.clientInd" /></td>
+							<td align="center" bgcolor="lightgrey"><b>SIS Induction</b></td>
+							<td align="center"><span ng-hide="editing">{{response.sisInd}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="sisInd" id="sisInd" placeholder="Enter status"
+								ng-model="response.sisInd" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Architecture</b></td>
+							<td align="center"><span ng-hide="editing">{{response.arch}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="arch" id="arch"
+								placeholder="Enter resource arch"
+								ng-model="response.arch" /></td>
+							<td align="center" bgcolor="lightgrey"><b>Common Pattern</b></td>
+							<td align="center"><span ng-hide="editing">{{response.comPatterns}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="comPatterns" id="comPatterns" placeholder="Enter rstatus"
+								ng-model="response.comPatterns" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Dev Technologies</b></td>
+							<td align="center"><span ng-hide="editing">{{response.devTech}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="devTech" id="devTech"
+								placeholder="Enter status"
+								ng-model="response.devTech" /></td>
+							<td align="center" bgcolor="lightgrey"><b>Test Framework</b></td>
+							<td align="center"><span ng-hide="editing">{{response.testFram}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="testFram" id="testFram" placeholder="Enter status"
+								ng-model="response.testFram" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Code/ Design walkthrough</b></td>
+							<td align="center"><span ng-hide="editing">{{response.cdWalkthrough}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="cdWalkthrough" id="cdWalkthrough"
+								placeholder="Enter status"
+								ng-model="response.cdWalkthrough" /></td>
+							<td align="center" bgcolor="lightgrey"><b>Agile</b></td>
+							<td align="center"><span ng-hide="editing">{{response.agile}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="agile" id="agile" placeholder="Enter status"
+								ng-model="response.agile" /></td>
+						</tr>
+						<tr>
+							<td align="left" colspan="4" class="bg-info text-white"><strong style="color:blue">Assets Overview</strong>
+							</td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Code Coverage</b></td>
+							<td align="center"><span ng-hide="editing">{{response.codecov}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="codecov" id="codecov"
+								placeholder="Enter status"
+								ng-model="response.codecov" /></td>
+							<td align="center" bgcolor="lightgrey"><b>Code Review</b></td>
+							<td align="center"><span ng-hide="editing">{{response.coderev}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="coderev" id="coderev" placeholder="Enter status"
+								ng-model="response.coderev" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Logging Framework</b></td>
+							<td align="center"><span ng-hide="editing">{{response.logfram}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="logfram" id="logfram"
+								placeholder="Enter status"
+								ng-model="response.logfram" /></td>
+							<td align="center" bgcolor="lightgrey"><b>ESQL Generator</b></td>
+							<td align="center"><span ng-hide="editing">{{response.esqlGen}}</span>
+								<input ng-show="editing" type="text" class="form-control"
+								name="esqlGen" id="esqlGen" placeholder="Enter status"
+								ng-model="response.esqlGen" /></td>
+						</tr>
+					</table>
+					<p>
+					<input type="hidden" name="internalId" id="internalId"
+								ng-model="response.internalId"></p>
+				</form>
+
+				<!--<p> {{"CID: " +response.cid }}</p>
+			<p>{{" Role: "+response.role}}</p>
+			<p>{{" Name: "+response.name}}</p>-->
+
+			</div>
+			<div align="center" class="alert alert-warning" ng-hide='visible'>
+    					<strong> Search resource on CID basis! Click 'Edit' to update the information</strong>
+  				</div>
+  				<hr/>
+		</div>
+
+		<!-- <div class="col-sm-offset-2 col-sm-10" ng-controller="getcontroller">
+		<button id="btn-id" type="button" class="btn btn-primary" ng-click="getfunction()">Get All Resources</button>
+		<ul>
+        	<li ng-repeat="cust in response">{{cust.firstname + " " + cust.lastname}}</li>
+    	</ul>
+	</div> -->
+
+	</div>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>SIS On-Boarding</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script .col-sm-3
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="/js/controller.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
+
+<style>
+hr {
+	display: block;
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+	margin-left: auto;
+	margin-right: auto;
+	border-style: inset;
+	border-width: 1px;
+}
+</style>
+</head>
+<body>
+	<div class="container" ng-app="app1">
+		<div class="col-sm-24" align="center">
+			<h2 style="color: blue">Welcome to Service Integration Squad -
+				On Boarding</h2>
+		</div>
+		<hr>
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/onboarding/info">SIS Onboarding</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="/onboarding/info">Dashboard</a></li>
+					<li><a href="/onboarding">EditUser</a></li>
+					<li><a href="/createrecord">CreateUser</a></li>
+				</ul>
+			</div>
+		</nav>
+		<hr>
+		<div ng-controller="getalluserinfocontroller" class="col-sm-12">
+			<form class="form-horizontal" name="usersForm"
+				ng-submit="getusersinfo()" ng-init="getusersinfo()">
+				<div class="form-inline" style="border: thin">
+					<div align="right">
+						<button id="btn-id" type="submit" class="btn btn-primary">Refresh</button>
+					</div>				<div class="col-sm10">
+					<p class="bg-success text-white"></p>
+				</div>
+				</div>
+			
+			<hr />
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>CID</th>
+						<th>Tooling Status</th>
+						<th>Induction Status<postResultMessage/th>
+						<th>Asset Overview</th>
+					</tr>
+				</thead>
+				<tbody ng-repeat="item in response">
+					<tr>
+						<td>{{item.name}}</td>
+						<td>{{item.cid}}</td>
+						<td>{{item.toolingStatus}}</td>
+						<td>{{item.inductionStatus}}</td>
+						<td>{{item.assetOverview}}</td>
+						<td ng-click="edit(item.cid)"><a href="http://localhost:8080/onboarding">Verify</a></td>
+					</tr>
+				</tbody>
+			</table>
+			{{postResultMessage}}
+			<!--<p> {{"CID: " +response.cid }}</p>
+			<p>{{" Role: "+response.role}}</p>
+			<p>{{" Name: "+response.name}}</p>-->
+			</form>
+			</div>
+			
+		<hr/>
+		</div>
+
+		<!-- <div class="col-sm-offset-2 col-sm-10" ng-controller="getcontroller">
+		<button id="btn-id" type="button" class="btn btn-primary" ng-click="getfunction()">Get All Resources</button>
+		<ul>
+        	<li ng-repeat="cust in response">{{cust.firstname + " " + cust.lastname}}</li>
+    	</ul>
+	</div> -->
+
+	</div>
+</body>
+</html>

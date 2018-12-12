@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
 Implementation-Title: SISOnboarding
 Implementation-Version: 0.0.1-SNAPSHOT
-Built-By: ibm_admin
+Built-By: shwetrai
 Implementation-Vendor-Id: com.sis
-Build-Jdk: 1.8.0_191
+Build-Jdk: 1.8.0_181
 Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
  ot-starter-parent/SISOnboarding
 Created-By: Maven Integration for Eclipse

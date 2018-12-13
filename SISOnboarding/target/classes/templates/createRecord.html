@@ -62,6 +62,10 @@ hr {
 					<hr>
 					<table border="2" width="100%" class="table table-striped">
 						<tr>
+							<td align="left" colspan="4" class="bg-info text-white"><strong
+								style="color: blue">Basic Information</strong></td>
+						</tr>
+						<tr>
 							<td bgcolor="lightgrey" align="center"><b>CID</b></td>
 							<td align="center"><input type="text"
 								class="inputbox form-control" name="cid" id="CID"
@@ -93,6 +97,27 @@ hr {
 								name="clocation" id="clocation"
 								placeholder="Enter resource current location"
 								ng-model="response.clocation" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>Rate</b></td>
+							<td align="center">
+								<input type="text" class="form-control"
+								name="rate" id="rate" placeholder="Enter rate"
+								ng-model="response.rate" /></td>
+							<td align="center" bgcolor="lightgrey"><b>NBS Email ID </b></td>
+							<td align="center">
+								<input type="text" class="form-control"
+								name="cell" id="nbsid" placeholder="Enter resource NBS Email Id"
+								ng-model="response.nbsid" /></td>
+						</tr>
+						<tr>
+							<td align="center" bgcolor="lightgrey"><b>IBM Email ID</b></td>
+							<td align="center">
+								<input type="text" class="form-control"
+								name="rate" id="ibmid" placeholder="Enter IBM Email Id"
+								ng-model="response.ibmid" /></td>
+							<td align="center" bgcolor="lightgrey"><b></b></td>
+							<td align="center"></td>
 						</tr>
 						<tr>
 							<td align="left" colspan="4" class="bg-info text-white"><strong
@@ -259,10 +284,9 @@ hr {
 								ng-model="response.esqlGen" /></td>
 						</tr>
 					</table>
-					<hr><div class="col-sm-18" ng-show='editing'>
+					<hr><div class="col-sm-18">
 					<strong style="color: blue">Add Comments: </strong><input type="text" class="form-control" name="comments" id="comments"
 						ng-model="response.comments">	
-						<hr>
 						</div>
 
 				</form>

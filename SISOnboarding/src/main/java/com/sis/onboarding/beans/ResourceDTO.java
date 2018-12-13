@@ -1,6 +1,9 @@
 package com.sis.onboarding.beans;
 
 import java.util.Date;
+import java.util.List;
+
+import com.sis.onboarding.model.Comments;
 
 
 public class ResourceDTO {
@@ -17,7 +20,21 @@ public class ResourceDTO {
 	private String band;
 	private String baseLocation;
 	private String currentLocation;
+	private String comments;
+	private List<Comments> commentList;
 	
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+	public List<Comments> getCommentList() {
+		return commentList;
+	}
+	public void setCommentList(List<Comments> commentList) {
+		this.commentList = commentList;
+	}
 	public String getResourceId() {
 		return resourceId;
 	}

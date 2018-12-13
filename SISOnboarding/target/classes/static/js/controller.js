@@ -43,7 +43,8 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
 	$scope.updateuserinfo = function(){
 		//alert($location.absUrl());
 		var url = $location.absUrl() + "/postcustomer";
-		//alert(url);
+		alert(url);
+		alert($scope.response.comments);
 		var config = {
                 headers : {
                     'Accept': 'text/plain'
@@ -83,7 +84,9 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
             coderev: $scope.response.coderev,
             logfram: $scope.response.logfram,
             esqlGen: $scope.response.esqlGen,
-            internalId: $scope.response.internalId
+            internalId: $scope.response.internalId,
+            comments: $scope.response.comments
+            
         };
 		
 		$http.put(url, resource, config).then(function (response) {
@@ -167,7 +170,8 @@ createApp.controller('createcontroller', function($scope, $http, $location, $win
 	            codecov: $scope.response.codecov,
 	            coderev: $scope.response.coderev,
 	            logfram: $scope.response.logfram,
-	            esqlGen: $scope.response.esqlGen
+	            esqlGen: $scope.response.esqlGen,
+	            comments: $scope.response.comments
         };
 		
 		$http.post(url, resource, config).then(function (response) {

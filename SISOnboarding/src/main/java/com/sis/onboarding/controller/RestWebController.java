@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sis.onboarding.beans.ResourceDTO;
 import com.sis.onboarding.beans.ResourceStatusDTO;
+import com.sis.onboarding.model.Comments;
 import com.sis.onboarding.model.Resource;
 import com.sis.onboarding.model.ResourceStatus;;
  
@@ -95,7 +96,23 @@ public class RestWebController {
 				resource.setCoderev(resourceDTO.getAssetOverview().getCodeReview());
 				resource.setEsqlGen(resourceDTO.getAssetOverview().getEsqlGenerator());
 				
+				//TO-DO :-  to be replaced by actual code
+				resource.setCommentList(resourceDTO.getCommentList());
 				
+//				List<Comments> commentList= new ArrayList<Comments>();
+//				Comments commentsObj = new Comments();
+//				commentsObj.setComments("Induction Pending");
+//				commentsObj.setCommentsDate("12-12-2018");
+//				commentsObj.setCommentsBy("Pramod");
+//				commentList.add(commentsObj);
+//				
+//				Comments commentsObj1 = new Comments();
+//				commentsObj1.setComments("Induction Pending");
+//				commentsObj1.setCommentsDate("12-12-2018");
+//				commentsObj1.setCommentsBy("Shwet");
+//				commentList.add(commentsObj1);
+//				
+//				resource.setCommentList(commentList);
 				
 			} else {
 				System.out.println("Response1 is --->"+resourceDTO);
@@ -130,6 +147,7 @@ public class RestWebController {
 			 System.out.println("getCodeCoverage.."+resource.getCodecov());
 			 System.out.println("getArchitecturalInduction.."+resource.getArch());
 			 System.out.println("Tooling Activities.ADC Tool.."+resource.getAdc());
+			 System.out.println("Tooling Activities.ADC Tool.."+resource.getComments());
 			
 			/**  Set Resource Details **/
 			
@@ -177,7 +195,9 @@ public class RestWebController {
 			resourceDTO.getAssetOverview().setCodeReview(resource.getCoderev());
 			resourceDTO.getAssetOverview().setEsqlGenerator(resource.getEsqlGen());
 			
-		
+			// Comments
+			resourceDTO.setComments(resource.getComments());
+			
 			ResponseEntity<String> response = restTemplate.postForEntity( URL, resourceDTO, String.class );
 			
 //			HttpEntity<ResourceDTO> request = new HttpEntity<>(resourceDTO);
@@ -218,7 +238,7 @@ public class RestWebController {
 			 System.out.println("Base.."+resource.getBlocation());
 			 System.out.println("getCodeCoverage.."+resource.getCodecov());
 			 System.out.println("getArchitecturalInduction.."+resource.getArch());
-			 System.out.println("Tooling Activities.ADC Tool.."+resource.getAdc());
+			 System.out.println("TComments are: "+resource.getComments());
 			
 			/**  Set Resource Details **/
 			
@@ -266,7 +286,8 @@ public class RestWebController {
 			resourceDTO.getAssetOverview().setCodeReview(resource.getCoderev());
 			resourceDTO.getAssetOverview().setEsqlGenerator(resource.getEsqlGen());
 			
-		
+			// Comments
+			resourceDTO.setComments(resource.getComments());
 			//ResponseEntity<String> response = restTemplate.postForEntity( URL, resourceDTO, String.class );
 			
 			//restTemplate.exchange("http://localhost:8081/isp/v1/resources/{cid}",HttpMethod.PUT, null, new ParameterizedTypeReference<ResourceDTO>() {}, resource.getCid()).getBody();

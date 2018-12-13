@@ -1,5 +1,7 @@
 package com.sis.onboarding.model;
 
+import java.util.List;
+
 public class Resource {
 	
 	private String internalId;
@@ -40,7 +42,21 @@ public class Resource {
 	private String logfram;
 	private String esqlGen;
 	
+	private String comments;
+	private List<Comments> commentList;
 	
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+	public List<Comments> getCommentList() {
+		return commentList;
+	}
+	public void setCommentList(List<Comments> commentList) {
+		this.commentList = commentList;
+	}
 	public String getClientInd() {
 		return clientInd;
 	}

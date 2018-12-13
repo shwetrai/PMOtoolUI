@@ -1,5 +1,10 @@
 package com.sis.onboarding.model;
 
+/**
+ * This bean is to handle comments
+ * @author shwetrai
+ *
+ */
 public class Comments {
 	
 	private String comments;

@@ -54,7 +54,9 @@ public class RestWebController {
 				resource.setBand(resourceDTO.getBand());
 				resource.setBlocation(resourceDTO.getBaseLocation());
 				resource.setClocation(resourceDTO.getCurrentLocation());
-				
+				resource.setRate(resourceDTO.getRate());
+				resource.setNbsid(resourceDTO.getNbsid());
+				resource.setIbmid(resourceDTO.getIbmid());
 				/**  Set Tooling Activities **/
 				
 				resource.setAdc(resourceDTO.getToolingActivities().getAdcTool());
@@ -156,7 +158,9 @@ public class RestWebController {
 			resourceDTO.setBand(resource.getBand());
 			resourceDTO.setBaseLocation(resource.getBlocation());
 			resourceDTO.setCurrentLocation(resource.getClocation());
-			
+			resourceDTO.setRate(resource.getRate());
+			resourceDTO.setNbsid(resource.getNbsid());
+			resourceDTO.setIbmid(resource.getIbmid());
 			/**  Set Tooling Activities **/
 			
 			resourceDTO.getToolingActivities().setAdcTool(resource.getAdc());
@@ -247,6 +251,9 @@ public class RestWebController {
 			resourceDTO.setBand(resource.getBand());
 			resourceDTO.setBaseLocation(resource.getBlocation());
 			resourceDTO.setCurrentLocation(resource.getClocation());
+			resourceDTO.setRate(resource.getRate());
+			resourceDTO.setNbsid(resource.getNbsid());
+			resourceDTO.setIbmid(resource.getIbmid());
 			
 			/**  Set Tooling Activities **/
 			

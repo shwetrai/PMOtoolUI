@@ -10,6 +10,9 @@ public class Resource {
 	private String name;
 	private String role;
 	private String band;
+	private String nbsid;
+	private String rate;
+	private String ibmid;
 	private String blocation;
 	private String clocation;
 	private String vdi;
@@ -42,6 +45,26 @@ public class Resource {
 	private String logfram;
 	private String esqlGen;
 	
+	
+	
+	public String getNbsid() {
+		return nbsid;
+	}
+	public void setNbsid(String nbsid) {
+		this.nbsid = nbsid;
+	}
+	public String getRate() {
+		return rate;
+	}
+	public void setRate(String rate) {
+		this.rate = rate;
+	}
+	public String getIbmid() {
+		return ibmid;
+	}
+	public void setIbmid(String ibmid) {
+		this.ibmid = ibmid;
+	}
 	private String comments;
 	private List<Comments> commentList;
 	

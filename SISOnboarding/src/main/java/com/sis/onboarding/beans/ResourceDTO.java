@@ -21,8 +21,31 @@ public class ResourceDTO {
 	private String baseLocation;
 	private String currentLocation;
 	private String comments;
+	private String nbsid;
+	private String rate;
+	private String ibmid;
 	private List<Comments> commentList;
 	
+	
+	
+	public String getNbsid() {
+		return nbsid;
+	}
+	public void setNbsid(String nbsid) {
+		this.nbsid = nbsid;
+	}
+	public String getRate() {
+		return rate;
+	}
+	public void setRate(String rate) {
+		this.rate = rate;
+	}
+	public String getIbmid() {
+		return ibmid;
+	}
+	public void setIbmid(String ibmid) {
+		this.ibmid = ibmid;
+	}
 	public String getComments() {
 		return comments;
 	}

@@ -41,9 +41,41 @@ public class Resource {
 	private String cdWalkthrough;
 	private String agile;
 	private String codecov;
-	private String coderev;
+	private String ddt;  
 	private String logfram;
-	private String esqlGen;
+	private String esqlGen;// this field is being used for Rest Code Generator
+	
+	private String buildProcess;
+	private String cicd;
+	private String codingStd;
+	private String governanceTool;
+	
+	
+	public String getBuildProcess() {
+		return buildProcess;
+	}
+	public void setBuildProcess(String buildProcess) {
+		this.buildProcess = buildProcess;
+	}
+	public String getCicd() {
+		return cicd;
+	}
+	public void setCicd(String cicd) {
+		this.cicd = cicd;
+	}
+	public String getCodingStd() {
+		return codingStd;
+	}
+	public void setCodingStd(String codingStd) {
+		this.codingStd = codingStd;
+	}
+	public String getGovernanceTool() {
+		return governanceTool;
+	}
+	public void setGovernanceTool(String governanceTool) {
+		this.governanceTool = governanceTool;
+	}
+	
 	
 	
 	
@@ -134,11 +166,11 @@ public class Resource {
 	public void setCodecov(String codecov) {
 		this.codecov = codecov;
 	}
-	public String getCoderev() {
-		return coderev;
+	public String getDdt() {
+		return ddt;
 	}
-	public void setCoderev(String coderev) {
-		this.coderev = coderev;
+	public void setDdt(String ddt) {
+		this.ddt = ddt;
 	}
 	public String getLogfram() {
 		return logfram;

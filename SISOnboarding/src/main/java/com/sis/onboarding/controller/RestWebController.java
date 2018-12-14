@@ -95,7 +95,7 @@ public class RestWebController {
 				
 				resource.setCodecov(resourceDTO.getAssetOverview().getCodeCoverage());
 				resource.setLogfram(resourceDTO.getAssetOverview().getLoggingFramework());
-				resource.setCoderev(resourceDTO.getAssetOverview().getCodeReview());
+				resource.setDdt(resourceDTO.getAssetOverview().getCodeReview());
 				resource.setEsqlGen(resourceDTO.getAssetOverview().getEsqlGenerator());
 				
 				//TO-DO :-  to be replaced by actual code
@@ -115,6 +115,10 @@ public class RestWebController {
 //				commentList.add(commentsObj1);
 //				
 //				resource.setCommentList(commentList);
+				resource.setCicd("cicd");
+				resource.setBuildProcess("BP");
+				resource.setGovernanceTool("Centra");
+				resource.setCodingStd("std");
 				
 			} else {
 				System.out.println("Response1 is --->"+resourceDTO);
@@ -196,7 +200,7 @@ public class RestWebController {
 			
 			resourceDTO.getAssetOverview().setCodeCoverage(resource.getCodecov());
 			resourceDTO.getAssetOverview().setLoggingFramework(resource.getLogfram());
-			resourceDTO.getAssetOverview().setCodeReview(resource.getCoderev());
+			resourceDTO.getAssetOverview().setCodeReview(resource.getDdt());
 			resourceDTO.getAssetOverview().setEsqlGenerator(resource.getEsqlGen());
 			
 			// Comments
@@ -290,7 +294,7 @@ public class RestWebController {
 			
 			resourceDTO.getAssetOverview().setCodeCoverage(resource.getCodecov());
 			resourceDTO.getAssetOverview().setLoggingFramework(resource.getLogfram());
-			resourceDTO.getAssetOverview().setCodeReview(resource.getCoderev());
+			resourceDTO.getAssetOverview().setCodeReview(resource.getDdt());
 			resourceDTO.getAssetOverview().setEsqlGenerator(resource.getEsqlGen());
 			
 			// Comments

@@ -88,7 +88,11 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
             logfram: $scope.response.logfram,
             esqlGen: $scope.response.esqlGen,
             internalId: $scope.response.internalId,
-            comments: $scope.response.comments
+            comments: $scope.response.comments,
+            buildProcess: $scope.response.buildProcess,
+            cicd: $scope.response.cicd,
+            codingStd: $scope.response.codingStd,
+            governanceTool: $scope.response.governanceTool
             
         };
 		
@@ -177,7 +181,11 @@ createApp.controller('createcontroller', function($scope, $http, $location, $win
 	            coderev: $scope.response.coderev,
 	            logfram: $scope.response.logfram,
 	            esqlGen: $scope.response.esqlGen,
-	            comments: $scope.response.comments
+	            comments: $scope.response.comments,
+	            buildProcess: $scope.response.buildProcess,
+	            cicd: $scope.response.cicd,
+	            codingStd: $scope.response.codingStd,
+	            governanceTool: $scope.response.governanceTool
         };
 		
 		$http.post(url, resource, config).then(function (response) {

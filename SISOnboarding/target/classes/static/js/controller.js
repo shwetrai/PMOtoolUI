@@ -43,8 +43,8 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
 	$scope.updateuserinfo = function(){
 		//alert($location.absUrl());
 		var url = $location.absUrl() + "/postcustomer";
-		alert(url);
-		alert($scope.response.comments);
+		//alert(url);
+		//alert($scope.response.comments);
 		var config = {
                 headers : {
                     'Accept': 'text/plain'
@@ -82,11 +82,12 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
             devTech: $scope.response.devTech,
             testFram: $scope.response.testFram,
             cdWalkthrough: $scope.response.cdWalkthrough,
-            agile: $scope.response.cdWalkthrough,
+            agile: $scope.response.agile,
             codecov: $scope.response.codecov,
-            coderev: $scope.response.ddt,
+            ddt: $scope.response.ddt, // Changed field
             logfram: $scope.response.logfram,
             esqlGen: $scope.response.esqlGen,
+            // New Fields
             internalId: $scope.response.internalId,
             comments: $scope.response.comments,
             buildProcess: $scope.response.buildProcess,
@@ -99,7 +100,7 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
 		$http.put(url, resource, config).then(function (response) {
 			$scope.postResultMessage = response.data;
 		}, function error(response) {
-			alert(url);
+			//alert(url);
 			$scope.postResultMessage = "Error with status:123 " +  response.statusText;
 		});
 		
@@ -178,7 +179,7 @@ createApp.controller('createcontroller', function($scope, $http, $location, $win
 	            cdWalkthrough: $scope.response.cdWalkthrough,
 	            agile: $scope.response.cdWalkthrough,
 	            codecov: $scope.response.codecov,
-	            coderev: $scope.response.ddt,
+	            ddt: $scope.response.ddt,
 	            logfram: $scope.response.logfram,
 	            esqlGen: $scope.response.esqlGen,
 	            comments: $scope.response.comments,
@@ -191,8 +192,8 @@ createApp.controller('createcontroller', function($scope, $http, $location, $win
 		$http.post(url, resource, config).then(function (response) {
 			$scope.postResultMessage = response.data;
 		}, function error(response) {
-			alert(url);
-			$scope.postResultMessage = "Error with status:123 " +  response.statusText;
+			//alert(url);
+			$scope.postResultMessage = "Error with status:" +  response.statusText;
 		});
 		
 		$scope.firstname = "";

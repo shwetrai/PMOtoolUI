@@ -8,25 +8,31 @@ import com.sis.onboarding.model.Comments;
 
 public class ResourceDTO {
 	
-    private String id;
+	private String id;
+	
 	private String resourceId;
 	private String name;
-	private Date creationDate;
-	private ToolingActivity toolingActivities = new ToolingActivity();
-	private InductionStatus inductionStatus = new InductionStatus();
-	private AssetsOverview assetOverview = new AssetsOverview();
-	private Roles resourceRole;
-	private Cells resourceCell;	
+	
 	private String band;
 	private String baseLocation;
 	private String currentLocation;
-	private String comments;
 	private String nbsid;
 	private String rate;
 	private String ibmid;
+	private String role;
+
+	private Date creationDate;
+	
+
+	
+	private String comments;
+		
+	
+	private ToolingActivity toolingActivities = new ToolingActivity();
+	private InductionStatus inductionStatus = new InductionStatus();
+	private AssetsOverview assetOverview = new AssetsOverview();
+	
 	private List<Comments> commentList;
-	
-	
 	
 	public String getNbsid() {
 		return nbsid;
@@ -65,18 +71,6 @@ public class ResourceDTO {
 		this.resourceId = resourceId;
 	}
 	
-	public Cells getResourceCell() {
-		return resourceCell;
-	}
-	public void setResourceCell(Cells resourceCell) {
-		this.resourceCell = resourceCell;
-	}
-	public Roles getResourceRole() {
-		return resourceRole;
-	}
-	public void setResourceRole(Roles resourceRole) {
-		this.resourceRole = resourceRole;
-	}
 	public String getId() {
 		return id;
 	}
@@ -89,18 +83,7 @@ public class ResourceDTO {
 	public void setName(String name) {
 		this.name = name;
 	}
-//	public String getRoleId() {
-//		return roleId;
-//	}
-//	public void setRoleId(String roleId) {
-//		this.roleId = roleId;
-//	}
-//	public String getCellId() {
-//		return cellId;
-//	}
-//	public void setCellId(String cellId) {
-//		this.cellId = cellId;
-//	}
+
 	public Date getCreationDate() {
 		return creationDate;
 	}
@@ -143,6 +126,12 @@ public class ResourceDTO {
 	}
 	public void setCurrentLocation(String currentLocation) {
 		this.currentLocation = currentLocation;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 	

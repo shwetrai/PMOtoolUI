@@ -2,7 +2,9 @@ package com.sis.onboarding.controller;
 
  
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -57,8 +59,9 @@ public class RestWebController {
 				resource.setRate(resourceDTO.getRate());
 				resource.setNbsid(resourceDTO.getNbsid());
 				resource.setIbmid(resourceDTO.getIbmid());
+				resource.setRole(resourceDTO.getRole());
+
 				/**  Set Tooling Activities **/
-				
 				resource.setAdc(resourceDTO.getToolingActivities().getAdcTool());
 				resource.setVdi(resourceDTO.getToolingActivities().getVdi());
 				resource.setWebex(resourceDTO.getToolingActivities().getWebex());
@@ -78,47 +81,28 @@ public class RestWebController {
 				
 				/**  Set Induction Activities **/
 				resource.setClientInd(resourceDTO.getInductionStatus().getClientInduction());
-				
 				resource.setArch(resourceDTO.getInductionStatus().getArchitecturalInduction());
 				resource.setDevTech(resourceDTO.getInductionStatus().getDevTech());
 				resource.setCdWalkthrough(resourceDTO.getInductionStatus().getCodeWalkthrough());
-//				resource.setCdWalkthrough("test CD");
 				resource.setSisInd(resourceDTO.getInductionStatus().getSisInduction());
 				resource.setComPatterns(resourceDTO.getInductionStatus().getCommonPatterns());
 				resource.setTestFram(resourceDTO.getInductionStatus().getTestingFramework());
-//				resource.setTestFram("testFram");
 				resource.setAgile(resourceDTO.getInductionStatus().getAgileTraining());
-				
-				
+				//new fields
+				resource.setBuildProcess(resourceDTO.getInductionStatus().getBuildProcess());
+				resource.setCicd(resourceDTO.getInductionStatus().getCicd());
+				resource.setCodingStd(resourceDTO.getInductionStatus().getCodingStd());
+				resource.setGovernanceTool(resourceDTO.getInductionStatus().getGovernanceTool());
 				
 				/**  Set Assets Overview **/
-				
 				resource.setCodecov(resourceDTO.getAssetOverview().getCodeCoverage());
 				resource.setLogfram(resourceDTO.getAssetOverview().getLoggingFramework());
-				resource.setDdt(resourceDTO.getAssetOverview().getCodeReview());
+				resource.setDdt(resourceDTO.getAssetOverview().getDataDrivenTesting());
 				resource.setEsqlGen(resourceDTO.getAssetOverview().getEsqlGenerator());
 				
 				//TO-DO :-  to be replaced by actual code
 				resource.setCommentList(resourceDTO.getCommentList());
-				
-//				List<Comments> commentList= new ArrayList<Comments>();
-//				Comments commentsObj = new Comments();
-//				commentsObj.setComments("Induction Pending");
-//				commentsObj.setCommentsDate("12-12-2018");
-//				commentsObj.setCommentsBy("Pramod");
-//				commentList.add(commentsObj);
-//				
-//				Comments commentsObj1 = new Comments();
-//				commentsObj1.setComments("Induction Pending");
-//				commentsObj1.setCommentsDate("12-12-2018");
-//				commentsObj1.setCommentsBy("Shwet");
-//				commentList.add(commentsObj1);
-//				
-//				resource.setCommentList(commentList);
-				resource.setCicd("cicd");
-				resource.setBuildProcess("BP");
-				resource.setGovernanceTool("Centra");
-				resource.setCodingStd("std");
+
 				
 			} else {
 				System.out.println("Response1 is --->"+resourceDTO);
@@ -165,6 +149,7 @@ public class RestWebController {
 			resourceDTO.setRate(resource.getRate());
 			resourceDTO.setNbsid(resource.getNbsid());
 			resourceDTO.setIbmid(resource.getIbmid());
+			resourceDTO.setRole(resource.getRole());
 			/**  Set Tooling Activities **/
 			
 			resourceDTO.getToolingActivities().setAdcTool(resource.getAdc());
@@ -193,6 +178,11 @@ public class RestWebController {
 			resourceDTO.getInductionStatus().setCommonPatterns(resource.getComPatterns());
 			resourceDTO.getInductionStatus().setTestingFramework(resource.getTestFram());
 			resourceDTO.getInductionStatus().setAgileTraining(resource.getAgile());
+			//new fields
+			resourceDTO.getInductionStatus().setBuildProcess(resource.getBuildProcess());
+			resourceDTO.getInductionStatus().setCicd(resource.getCicd());
+			resourceDTO.getInductionStatus().setCodingStd(resource.getCodingStd());
+			resourceDTO.getInductionStatus().setGovernanceTool(resource.getGovernanceTool());
 			
 			
 			
@@ -200,17 +190,33 @@ public class RestWebController {
 			
 			resourceDTO.getAssetOverview().setCodeCoverage(resource.getCodecov());
 			resourceDTO.getAssetOverview().setLoggingFramework(resource.getLogfram());
-			resourceDTO.getAssetOverview().setCodeReview(resource.getDdt());
+			resourceDTO.getAssetOverview().setDataDrivenTesting(resource.getDdt());
 			resourceDTO.getAssetOverview().setEsqlGenerator(resource.getEsqlGen());
 			
 			// Comments
-			resourceDTO.setComments(resource.getComments());
+
+			String commentsText = resource.getComments();
+			System.out.println("Comments..."+commentsText);
+			
+			if(resource.getComments() != null) {
+				
+				List<Comments> commentList = new ArrayList<Comments>();
+				Comments comments = new Comments();
+				Date now = new Date();
+
+				comments.setCommentsText(commentsText);
+				comments.setCommentsBy("admin");
+				comments.setCommentsDate(now.toString());
+				comments.setResourceId(resource.getCid());
+				comments.setId(UUID.randomUUID());
+				
+				commentList.add(comments);
+				resourceDTO.setCommentList(commentList);
+				
+			}
 			
 			ResponseEntity<String> response = restTemplate.postForEntity( URL, resourceDTO, String.class );
 			
-//			HttpEntity<ResourceDTO> request = new HttpEntity<>(resourceDTO);
-//			ResourceDTO newResourceDTO = restTemplate.postForObject(URL, resourceDTO, ResourceDTO.class);
-//			
 			
 			System.out.println("Response Code :"+response.getStatusCodeValue());
 			int responseCode = response.getStatusCodeValue();
@@ -258,6 +264,7 @@ public class RestWebController {
 			resourceDTO.setRate(resource.getRate());
 			resourceDTO.setNbsid(resource.getNbsid());
 			resourceDTO.setIbmid(resource.getIbmid());
+			resourceDTO.setRole(resource.getRole());
 			
 			/**  Set Tooling Activities **/
 			
@@ -287,6 +294,11 @@ public class RestWebController {
 			resourceDTO.getInductionStatus().setCommonPatterns(resource.getComPatterns());
 			resourceDTO.getInductionStatus().setTestingFramework(resource.getTestFram());
 			resourceDTO.getInductionStatus().setAgileTraining(resource.getAgile());
+			//new fields
+			resourceDTO.getInductionStatus().setBuildProcess(resource.getBuildProcess());
+			resourceDTO.getInductionStatus().setCicd(resource.getCicd());
+			resourceDTO.getInductionStatus().setCodingStd(resource.getCodingStd());
+			resourceDTO.getInductionStatus().setGovernanceTool(resource.getGovernanceTool());
 			
 			
 			
@@ -294,12 +306,30 @@ public class RestWebController {
 			
 			resourceDTO.getAssetOverview().setCodeCoverage(resource.getCodecov());
 			resourceDTO.getAssetOverview().setLoggingFramework(resource.getLogfram());
-			resourceDTO.getAssetOverview().setCodeReview(resource.getDdt());
+			resourceDTO.getAssetOverview().setDataDrivenTesting(resource.getDdt());
 			resourceDTO.getAssetOverview().setEsqlGenerator(resource.getEsqlGen());
 			
 			// Comments
-			resourceDTO.setComments(resource.getComments());
-			//ResponseEntity<String> response = restTemplate.postForEntity( URL, resourceDTO, String.class );
+
+			String commentsText = resource.getComments();
+			System.out.println("Comments..."+commentsText);
+			
+			if(resource.getComments() != null) {
+				
+				List<Comments> commentList = new ArrayList<Comments>();
+				Comments comments = new Comments();
+				Date now = new Date();
+
+				comments.setCommentsText(commentsText);
+				comments.setCommentsBy("admin");
+				comments.setCommentsDate(now.toString());
+				comments.setResourceId(resource.getCid());
+				comments.setId(UUID.randomUUID());
+				
+				commentList.add(comments);
+				resourceDTO.setCommentList(commentList);
+				
+			}
 			
 			//restTemplate.exchange("http://localhost:8081/isp/v1/resources/{cid}",HttpMethod.PUT, null, new ParameterizedTypeReference<ResourceDTO>() {}, resource.getCid()).getBody();
 			HttpHeaders headers = new HttpHeaders();

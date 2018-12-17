@@ -1,5 +1,7 @@
 package com.sis.onboarding.model;
 
+import java.util.UUID;
+
 /**
  * This bean is to handle comments
  * @author shwetrai
@@ -7,15 +9,13 @@ package com.sis.onboarding.model;
  */
 public class Comments {
 	
-	private String comments;
+	
+	private String commentsText;
 	private String commentsDate;
 	private String commentsBy;
-	public String getComments() {
-		return comments;
-	}
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
+	private String resourceId;
+	private UUID id;
+	
 	public String getCommentsDate() {
 		return commentsDate;
 	}
@@ -28,6 +28,25 @@ public class Comments {
 	public void setCommentsBy(String commentsBy) {
 		this.commentsBy = commentsBy;
 	}
+	public String getCommentsText() {
+		return commentsText;
+	}
+	public void setCommentsText(String commentsText) {
+		this.commentsText = commentsText;
+	}
+	public String getResourceId() {
+		return resourceId;
+	}
+	public void setResourceId(String resourceId) {
+		this.resourceId = resourceId;
+	}
+	public UUID getId() {
+		return id;
+	}
+	public void setId(UUID id) {
+		this.id = id;
+	}
+	
 	
 	
 

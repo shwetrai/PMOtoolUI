@@ -10,7 +10,11 @@ public class InductionStatus {
 	private String agileTraining;
 	private String clientInduction;
 	private String codeWalkthrough;
-	
+
+	private String buildProcess;
+	private String cicd;
+	private String codingStd;
+	private String governanceTool;
 	
 	public String getSisInduction() {
 		return sisInduction;
@@ -59,6 +63,30 @@ public class InductionStatus {
 	}
 	public void setCodeWalkthrough(String codeWalkthrough) {
 		this.codeWalkthrough = codeWalkthrough;
+	}
+	public String getBuildProcess() {
+		return buildProcess;
+	}
+	public void setBuildProcess(String buildProcess) {
+		this.buildProcess = buildProcess;
+	}
+	public String getCicd() {
+		return cicd;
+	}
+	public void setCicd(String cicd) {
+		this.cicd = cicd;
+	}
+	public String getCodingStd() {
+		return codingStd;
+	}
+	public void setCodingStd(String codingStd) {
+		this.codingStd = codingStd;
+	}
+	public String getGovernanceTool() {
+		return governanceTool;
+	}
+	public void setGovernanceTool(String governanceTool) {
+		this.governanceTool = governanceTool;
 	}
 	
 	

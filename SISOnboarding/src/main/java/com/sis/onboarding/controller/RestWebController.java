@@ -12,6 +12,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +24,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.sis.onboarding.beans.ResourceDTO;
 import com.sis.onboarding.beans.ResourceStatusDTO;
+import com.sis.onboarding.config.UIConfiguration;
 import com.sis.onboarding.model.Comments;
 import com.sis.onboarding.model.Resource;
 import com.sis.onboarding.model.ResourceStatus;;
@@ -35,73 +37,85 @@ public class RestWebController {
 	@Autowired
     RestTemplate restTemplate;
 	
+	@Autowired
+	UIConfiguration uiConfiguration;
+	
 	
 	@RequestMapping(value = "/onboarding/getuserInfo/{cid}",method = RequestMethod.GET)
-	public Resource getUserInfo(@PathVariable String cid){
-		System.out.println("**** Entered into RestWebController.getUserInfo ***");
-		Resource resource = new Resource();
-		ResourceDTO resourceDTO=null;
+	public ResponseEntity<Resource> getUserInfo(@PathVariable String cid){
+		
+		
+		System.out.println("**** Entered into RestWebController.getUserInfo ***"+uiConfiguration.getHost());
+		
+		Resource resource=new Resource();
 		try {
+			StringBuffer sbURL = new StringBuffer();
+			sbURL.append(uiConfiguration.getProtocol()).append("://")
+			.append(uiConfiguration.getHost()).append(":").append(uiConfiguration.getPort())
+			.append(uiConfiguration.getUri())
+			.append(uiConfiguration.getVersion())
+			.append(uiConfiguration.getGetresources());
 			
 			
-			resourceDTO = restTemplate.exchange("http://localhost:8081/isp/v1/resources/{cid}",HttpMethod.GET, null, new ParameterizedTypeReference<ResourceDTO>() {}, cid).getBody();
+			System.out.println("sbURL...."+sbURL.toString());
 			
-			if(resourceDTO != null) {
-				System.out.println("Response Internal ID..."+resourceDTO.getId());
-				
+			//resourceDTO = restTemplate.exchange(sbURL.toString(),HttpMethod.GET, null, new ParameterizedTypeReference<ResourceDTO>() {}, cid).getBody();
+			ResponseEntity<ResourceDTO> resourceDTO = (ResponseEntity<ResourceDTO>) restTemplate.getForEntity(sbURL.toString(), ResourceDTO.class, cid);
+			
+			if(resourceDTO != null) {				
 				/**  Set Resource Details **/
-				resource.setInternalId(resourceDTO.getId());
-				resource.setCid(resourceDTO.getResourceId());
-				resource.setName(resourceDTO.getName());
-				resource.setBand(resourceDTO.getBand());
-				resource.setBlocation(resourceDTO.getBaseLocation());
-				resource.setClocation(resourceDTO.getCurrentLocation());
-				resource.setRate(resourceDTO.getRate());
-				resource.setNbsid(resourceDTO.getNbsid());
-				resource.setIbmid(resourceDTO.getIbmid());
-				resource.setRole(resourceDTO.getRole());
+				resource.setInternalId(resourceDTO.getBody().getId());
+				resource.setCid(resourceDTO.getBody().getResourceId());
+				resource.setName(resourceDTO.getBody().getName());
+				resource.setBand(resourceDTO.getBody().getBand());
+				resource.setBlocation(resourceDTO.getBody().getBaseLocation());
+				resource.setClocation(resourceDTO.getBody().getCurrentLocation());
+				resource.setRate(resourceDTO.getBody().getRate());
+				resource.setNbsid(resourceDTO.getBody().getNbsid());
+				resource.setIbmid(resourceDTO.getBody().getIbmid());
+				resource.setRole(resourceDTO.getBody().getRole());
 
 				/**  Set Tooling Activities **/
-				resource.setAdc(resourceDTO.getToolingActivities().getAdcTool());
-				resource.setVdi(resourceDTO.getToolingActivities().getVdi());
-				resource.setWebex(resourceDTO.getToolingActivities().getWebex());
-				resource.setJenkins(resourceDTO.getToolingActivities().getJenkins());
-				resource.setIib(resourceDTO.getToolingActivities().getIib());
-				resource.setDb2explorer(resourceDTO.getToolingActivities().getDb2explorer());
-				resource.setMqexplorer(resourceDTO.getToolingActivities().getMqexplorer());
-				resource.setWinscp(resourceDTO.getToolingActivities().getWinscp());
-				resource.setReadyAPI(resourceDTO.getToolingActivities().getReadyAPI());
-				resource.setArd(resourceDTO.getToolingActivities().getArdTool());
-				resource.setRtc(resourceDTO.getToolingActivities().getRtc());
-				resource.setAlm(resourceDTO.getToolingActivities().getAlm());
-				resource.setDb2(resourceDTO.getToolingActivities().getDb2());
-				resource.setMq(resourceDTO.getToolingActivities().getMq());
-				resource.setPutty(resourceDTO.getToolingActivities().getPutty());
+				resource.setAdc(resourceDTO.getBody().getToolingActivities().getAdcTool());
+				resource.setVdi(resourceDTO.getBody().getToolingActivities().getVdi());
+				resource.setWebex(resourceDTO.getBody().getToolingActivities().getWebex());
+				resource.setJenkins(resourceDTO.getBody().getToolingActivities().getJenkins());
+				resource.setIib(resourceDTO.getBody().getToolingActivities().getIib());
+				resource.setDb2explorer(resourceDTO.getBody().getToolingActivities().getDb2explorer());
+				resource.setMqexplorer(resourceDTO.getBody().getToolingActivities().getMqexplorer());
+				resource.setWinscp(resourceDTO.getBody().getToolingActivities().getWinscp());
+				resource.setReadyAPI(resourceDTO.getBody().getToolingActivities().getReadyAPI());
+				resource.setArd(resourceDTO.getBody().getToolingActivities().getArdTool());
+				resource.setRtc(resourceDTO.getBody().getToolingActivities().getRtc());
+				resource.setAlm(resourceDTO.getBody().getToolingActivities().getAlm());
+				resource.setDb2(resourceDTO.getBody().getToolingActivities().getDb2());
+				resource.setMq(resourceDTO.getBody().getToolingActivities().getMq());
+				resource.setPutty(resourceDTO.getBody().getToolingActivities().getPutty());
 				
 				
 				/**  Set Induction Activities **/
-				resource.setClientInd(resourceDTO.getInductionStatus().getClientInduction());
-				resource.setArch(resourceDTO.getInductionStatus().getArchitecturalInduction());
-				resource.setDevTech(resourceDTO.getInductionStatus().getDevTech());
-				resource.setCdWalkthrough(resourceDTO.getInductionStatus().getCodeWalkthrough());
-				resource.setSisInd(resourceDTO.getInductionStatus().getSisInduction());
-				resource.setComPatterns(resourceDTO.getInductionStatus().getCommonPatterns());
-				resource.setTestFram(resourceDTO.getInductionStatus().getTestingFramework());
-				resource.setAgile(resourceDTO.getInductionStatus().getAgileTraining());
+				resource.setClientInd(resourceDTO.getBody().getInductionStatus().getClientInduction());
+				resource.setArch(resourceDTO.getBody().getInductionStatus().getArchitecturalInduction());
+				resource.setDevTech(resourceDTO.getBody().getInductionStatus().getDevTech());
+				resource.setCdWalkthrough(resourceDTO.getBody().getInductionStatus().getCodeWalkthrough());
+				resource.setSisInd(resourceDTO.getBody().getInductionStatus().getSisInduction());
+				resource.setComPatterns(resourceDTO.getBody().getInductionStatus().getCommonPatterns());
+				resource.setTestFram(resourceDTO.getBody().getInductionStatus().getTestingFramework());
+				resource.setAgile(resourceDTO.getBody().getInductionStatus().getAgileTraining());
 				//new fields
-				resource.setBuildProcess(resourceDTO.getInductionStatus().getBuildProcess());
-				resource.setCicd(resourceDTO.getInductionStatus().getCicd());
-				resource.setCodingStd(resourceDTO.getInductionStatus().getCodingStd());
-				resource.setGovernanceTool(resourceDTO.getInductionStatus().getGovernanceTool());
+				resource.setBuildProcess(resourceDTO.getBody().getInductionStatus().getBuildProcess());
+				resource.setCicd(resourceDTO.getBody().getInductionStatus().getCicd());
+				resource.setCodingStd(resourceDTO.getBody().getInductionStatus().getCodingStd());
+				resource.setGovernanceTool(resourceDTO.getBody().getInductionStatus().getGovernanceTool());
 				
 				/**  Set Assets Overview **/
-				resource.setCodecov(resourceDTO.getAssetOverview().getCodeCoverage());
-				resource.setLogfram(resourceDTO.getAssetOverview().getLoggingFramework());
-				resource.setDdt(resourceDTO.getAssetOverview().getDataDrivenTesting());
-				resource.setEsqlGen(resourceDTO.getAssetOverview().getEsqlGenerator());
+				resource.setCodecov(resourceDTO.getBody().getAssetOverview().getCodeCoverage());
+				resource.setLogfram(resourceDTO.getBody().getAssetOverview().getLoggingFramework());
+				resource.setDdt(resourceDTO.getBody().getAssetOverview().getDataDrivenTesting());
+				resource.setEsqlGen(resourceDTO.getBody().getAssetOverview().getEsqlGenerator());
 				
 				//TO-DO :-  to be replaced by actual code
-				resource.setCommentList(resourceDTO.getCommentList());
+				resource.setCommentList(resourceDTO.getBody().getCommentList());
 
 				
 			} else {
@@ -110,26 +124,35 @@ public class RestWebController {
 			
 		} catch (RestClientException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("RestClientException Occurred :"+e.getMessage());
+			return new ResponseEntity<Resource> (resource, HttpStatus.NOT_FOUND);
+			
 		}catch (Exception e) {
 			// TODO Auto-generated catch block
 			System.out.println("Exception Occurred :"+e.getMessage());
 		}
 		
 		
-			return resource;
+			return new ResponseEntity<Resource> (resource, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/createrecord/createuser", method=RequestMethod.POST)
-	public String postCustomer(@RequestBody Resource resource){
+	public ResponseEntity<String> postCustomer(@RequestBody Resource resource){
 		// TODO add "res" to DB
 		System.out.println("**** Entered into RestWebController.postCustomer*** "+resource.getCid());
 		
-		String URL = "http://localhost:8081/isp/v1/resources/create";
+		
 		ResourceDTO resourceDTO = new ResourceDTO();
 		String responseMessage = "";
 		
 		try {
+		
+			StringBuffer sbURL = new StringBuffer();
+			sbURL.append(uiConfiguration.getProtocol()).append("://")
+			.append(uiConfiguration.getHost()).append(":").append(uiConfiguration.getPort())
+			.append(uiConfiguration.getUri())
+			.append(uiConfiguration.getVersion())
+			.append(uiConfiguration.getPostresources());
 			
 			 System.out.println("Name.."+resource.getName() + ",id="+resource.getCid());
 			 System.out.println("Band.."+resource.getBand());
@@ -215,23 +238,35 @@ public class RestWebController {
 				
 			}
 			
-			ResponseEntity<String> response = restTemplate.postForEntity( URL, resourceDTO, String.class );
+			ResponseEntity<String> response =  restTemplate.postForEntity( sbURL.toString(), resourceDTO, String.class );
+			
 			
 			
 			System.out.println("Response Code :"+response.getStatusCodeValue());
+			
 			int responseCode = response.getStatusCodeValue();
+			System.out.println("Response Message--->"+response.getStatusCode().getReasonPhrase());
 			if (responseCode == 200) {
+				
 				responseMessage = "Record Created";
+				System.out.println("responseMessage....."+responseMessage);
 			}else {
-				responseMessage = "Error Occurred "+responseCode;
+				return new ResponseEntity<>("Record Not Created", response.getStatusCode());
 			}
 		
 		}catch(Exception e) {
 			System.out.println("******** RestWebController->postCustomer->Error Occurred::"+e.getMessage());
-			responseMessage = "Error Occurred "+e.getMessage();
+			if(e.getMessage().contains("409")) {
+				return new ResponseEntity<String>("Duplicate Record Found",HttpStatus.CONFLICT);
+			}else {
+				return new ResponseEntity<String>("Critical Error Occurred",HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+			
+			
 		}
+		return new ResponseEntity<>(responseMessage, HttpStatus.OK);
 		
-		return responseMessage;
+		
 	}
 	
 	
@@ -240,11 +275,18 @@ public class RestWebController {
 		// TODO add "res" to DB
 		System.out.println("**** Entered into RestWebController.updateResourcer*** "+resource.getCid());
 		
-		String URL = "http://localhost:8081/isp/v1/resources/{cid}";
+//		String URL = "http://localhost:8081/isp/v1/resources/{cid}";
 		ResourceDTO resourceDTO = new ResourceDTO();
 		String responseMessage = "";
 		
 		try {
+			
+			StringBuffer sbURL = new StringBuffer();
+			sbURL.append(uiConfiguration.getProtocol()).append("://")
+			.append(uiConfiguration.getHost()).append(":").append(uiConfiguration.getPort())
+			.append(uiConfiguration.getUri())
+			.append(uiConfiguration.getVersion())
+			.append(uiConfiguration.getPutresources());
 			
 			 System.out.println("Name.."+resource.getName() + ",id="+resource.getCid() +", INTERNAL ID = "+resource.getInternalId());
 			 
@@ -335,7 +377,7 @@ public class RestWebController {
 			HttpHeaders headers = new HttpHeaders();
 			HttpEntity<ResourceDTO> requestEntity = new HttpEntity<ResourceDTO>(resourceDTO, headers);
 			
-			HttpEntity<ResourceDTO> response = restTemplate.exchange(URL, HttpMethod.PUT, requestEntity, ResourceDTO.class, resource.getInternalId());
+			HttpEntity<ResourceDTO> response = restTemplate.exchange(sbURL.toString(), HttpMethod.PUT, requestEntity, ResourceDTO.class, resource.getInternalId());
 			
 			
 			System.out.println("Response Code :"+response);
@@ -357,10 +399,18 @@ public class RestWebController {
 		
 		System.out.println("**** Entered into getAllUsersInfo *****");
 		
-		String URL = "http://localhost:8081/isp/v1/resources/all";
+		//String URL = "http://localhost:8081/isp/v1/resources/all";
 		List<ResourceStatus> resourceStatusList = new ArrayList<ResourceStatus>();
 		try {
-			List<ResourceStatusDTO> resourceList = restTemplate.exchange(URL,HttpMethod.GET, null, new ParameterizedTypeReference<List<ResourceStatusDTO>>(){}).getBody();
+			
+			StringBuffer sbURL = new StringBuffer();
+			sbURL.append(uiConfiguration.getProtocol()).append("://")
+			.append(uiConfiguration.getHost()).append(":").append(uiConfiguration.getPort())
+			.append(uiConfiguration.getUri())
+			.append(uiConfiguration.getVersion())
+			.append(uiConfiguration.getGetallresources());
+			
+			List<ResourceStatusDTO> resourceList = restTemplate.exchange(sbURL.toString(),HttpMethod.GET, null, new ParameterizedTypeReference<List<ResourceStatusDTO>>(){}).getBody();
 			
 			
 			ResourceStatus status = null;
@@ -396,5 +446,8 @@ public class RestWebController {
 	        return new RestTemplate();
 	    }
 	
-	
+	 public RestWebController(UIConfiguration uiConfiguration) {
+		 this.uiConfiguration = uiConfiguration;
+	 }
+	 	
 }

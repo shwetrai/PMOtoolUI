@@ -50,7 +50,10 @@ hr {
 
 
 				<div align="right">
-					<strong style="color: green"> {{postResultMessage}}</strong>
+					<strong style="color: green"> {{postResultMessageS}}</strong>
+				</div>
+				<div align="right">
+					<strong style="color: red"> {{postResultMessageE}}</strong>
 				</div>
 				<form class="form-horizontal" name="statusUpdateForm"
 					ng-submit="createuserinfo()" ng-init="reloaduserinfo()">
@@ -66,18 +69,18 @@ hr {
 								style="color: blue">Basic Information</strong></td>
 						</tr>
 						<tr>
-							<td bgcolor="lightgrey" align="center"><b>CID</b></td>
-							<td align="center"><input type="text"
+							<td bgcolor="lightgrey" align="center"><b>CID <font color="red">*</font></b></td>
+							<td align="center"><input required="required" type="text"
 								class="inputbox form-control" name="cid" id="CID"
 								placeholder="Enter resource CID" ng-model="response.cid" /></td>
-							<td bgcolor="lightgrey" align="center"><b>Name</b></td>
-							<td align="center"><input type="text" class="form-control"
+							<td bgcolor="lightgrey" align="center"><b>Name <font color="red">*</font></b></td>
+							<td align="center"><input required="required" type="text" class="form-control"
 								name="name" id="name" placeholder="Enter resource name"
 								ng-model="response.name" /></td>
 						</tr>
 						<tr>
-							<td bgcolor="lightgrey" align="center"><b>Role</b></td>
-							<td align="center"><input type="text" class="form-control"
+							<td bgcolor="lightgrey" align="center"><b>Role <font color="red">*</font></b></td>
+							<td align="center"><input required="required" type="text" class="form-control"
 								name="role" id="role" placeholder="Enter resource role"
 								ng-model="response.role" /></td>
 							<td align="center" bgcolor="lightgrey"><b>Band</b></td>
@@ -86,14 +89,14 @@ hr {
 								ng-model="response.band" /></td>
 						</tr>
 						<tr>
-							<td align="center" bgcolor="lightgrey"><b>Base Location</b></td>
-							<td align="center"><input type="text" class="form-control"
+							<td align="center" bgcolor="lightgrey"><b>Base Location <font color="red">*</font></b></td>
+							<td align="center"><input required="required" type="text" class="form-control"
 								name="blocation" id="blocation"
 								placeholder="Enter resource base location"
 								ng-model="response.blocation" /></td>
 							<td align="center" bgcolor="lightgrey"><b>Current
-									Location</b></td>
-							<td align="center"><input type="text" class="form-control"
+									Location <font color="red">*</font></b></td>
+							<td align="center"><input required="required" type="text" class="form-control"
 								name="clocation" id="clocation"
 								placeholder="Enter resource current location"
 								ng-model="response.clocation" /></td>
@@ -104,16 +107,16 @@ hr {
 								<input type="text" class="form-control"
 								name="rate" id="rate" placeholder="Enter rate"
 								ng-model="response.rate" /></td>
-							<td align="center" bgcolor="lightgrey"><b>NBS Email ID </b></td>
+							<td align="center" bgcolor="lightgrey"><b>NBS Email ID <font color="red">*</font></b></td>
 							<td align="center">
-								<input type="text" class="form-control"
+								<input required="required" type="email" class="form-control"
 								name="cell" id="nbsid" placeholder="Enter resource NBS Email Id"
 								ng-model="response.nbsid" /></td>
 						</tr>
 						<tr>
-							<td align="center" bgcolor="lightgrey"><b>IBM Email ID</b></td>
+							<td align="center" bgcolor="lightgrey"><b>IBM Email ID <font color="red">*</font></b></td>
 							<td align="center">
-								<input type="text" class="form-control"
+								<input required="required" type="email" class="form-control"
 								name="rate" id="ibmid" placeholder="Enter IBM Email Id"
 								ng-model="response.ibmid" /></td>
 							<td align="center" bgcolor="lightgrey"><b></b></td>

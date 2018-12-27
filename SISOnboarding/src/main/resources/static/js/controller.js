@@ -7,6 +7,8 @@ var createApp = angular.module('createApp', []); // Used for Create page
 // This controller is being used for dashboard page
 app1.controller('getalluserinfocontroller', function($scope, $http, $location, $window) {
 	$scope.getusersinfo = function(){
+		$scope.postResultMessageE ='';
+		$scope.postResultMessageS ='';
 		var url = $location.absUrl() + "/getallusersInfo";
 		$http.get(url).then(function (response) {
 			$scope.response = response.data
@@ -27,24 +29,31 @@ app1.controller('getalluserinfocontroller', function($scope, $http, $location, $
 app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
 	$scope.getuserinfo = function(){
 		var url = $location.absUrl() + "/getuserInfo/"+ $scope.cid;
+		$scope.postResultMessageE ='';
+		$scope.postResultMessageS ='';
 		$scope.editing= false;
 		$scope.visible=false;
 		$http.get(url).then(function (response) {
 			$scope.response = response.data;
-			$scope.visible=true;
-			$scope.postResultMessage ='';
+			if(response.data==null) {
+				$scope.visible=false;
+				$scope.postResultMessageE ='Record Not Found';
+			} else{
+				$scope.visible=true;
+				$scope.postResultMessage ='';
+			}
+			
 		}, function error(response) {
-			$scope.postResultMessage = "Error with status: " +  response.statusText;
+			$scope.postResultMessageE = "Oops! Something went wrong. we got error : " +  response.statusText;
 		});
 	}
 	
 	// Udate function to update the user information
 	
 	$scope.updateuserinfo = function(){
-		//alert($location.absUrl());
 		var url = $location.absUrl() + "/postcustomer";
-		//alert(url);
-		//alert($scope.response.comments);
+		$scope.postResultMessageE ='';
+		$scope.postResultMessageS ='';
 		var config = {
                 headers : {
                     'Accept': 'text/plain'
@@ -98,10 +107,11 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
         };
 		
 		$http.put(url, resource, config).then(function (response) {
-			$scope.postResultMessage = response.data;
+			$scope.editing=false;
+			$scope.postResultMessageS = response.data;
 		}, function error(response) {
 			//alert(url);
-			$scope.postResultMessage = "Error with status:123 " +  response.statusText;
+			$scope.postResultMessageE = response.data;
 		});
 		
 		$scope.firstname = "";
@@ -110,7 +120,8 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
 	
 	// Reload User
 	$scope.reloaduserinfo= function(){
-		
+		$scope.postResultMessageE ='';
+		$scope.postResultMessageS ='';
 		var cid= $window.localStorage['cid'];
 		if(cid){
 			var url = $location.absUrl() + "/getuserInfo/"+ cid;
@@ -120,7 +131,7 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
 				$scope.visible=true;
 				$window.localStorage['cid']='';
 			}, function error(response) {
-				$scope.postResultMessage = "Oops! Something went wrong. we got error : " +  response.statusText;
+				$scope.postResultMessageE = "Oops! Something went wrong. we got error : " +  response.statusText;
 				$scope.visible=true;
 				$window.localStorage['cid']='';
 			});
@@ -138,6 +149,8 @@ createApp.controller('createcontroller', function($scope, $http, $location, $win
 
 	$scope.createuserinfo = function(){
 		//alert($location.absUrl());
+		$scope.postResultMessageE ='';
+		$scope.postResultMessageS ='';
 		var url = $location.absUrl() + "/createuser";
 		//alert(url);
 		var config = {
@@ -190,10 +203,9 @@ createApp.controller('createcontroller', function($scope, $http, $location, $win
         };
 		
 		$http.post(url, resource, config).then(function (response) {
-			$scope.postResultMessage = response.data;
+			$scope.postResultMessageS = response.data;
 		}, function error(response) {
-			//alert(url);
-			$scope.postResultMessage = "Error with status:" +  response.statusText;
+			$scope.postResultMessageE = response.data;
 		});
 		
 		$scope.firstname = "";

@@ -1,0 +1,57 @@
+{
+  "groups": [
+    {
+      "name": "rest",
+      "type": "com.sis.onboarding.config.UIConfiguration",
+      "sourceType": "com.sis.onboarding.config.UIConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "name": "rest.getallresources",
+      "type": "java.lang.String",
+      "sourceType": "com.sis.onboarding.config.UIConfiguration"
+    },
+    {
+      "name": "rest.getresources",
+      "type": "java.lang.String",
+      "sourceType": "com.sis.onboarding.config.UIConfiguration"
+    },
+    {
+      "name": "rest.host",
+      "type": "java.lang.String",
+      "sourceType": "com.sis.onboarding.config.UIConfiguration"
+    },
+    {
+      "name": "rest.port",
+      "type": "java.lang.String",
+      "sourceType": "com.sis.onboarding.config.UIConfiguration"
+    },
+    {
+      "name": "rest.postresources",
+      "type": "java.lang.String",
+      "sourceType": "com.sis.onboarding.config.UIConfiguration"
+    },
+    {
+      "name": "rest.protocol",
+      "type": "java.lang.String",
+      "sourceType": "com.sis.onboarding.config.UIConfiguration"
+    },
+    {
+      "name": "rest.putresources",
+      "type": "java.lang.String",
+      "sourceType": "com.sis.onboarding.config.UIConfiguration"
+    },
+    {
+      "name": "rest.uri",
+      "type": "java.lang.String",
+      "sourceType": "com.sis.onboarding.config.UIConfiguration"
+    },
+    {
+      "name": "rest.version",
+      "type": "java.lang.String",
+      "sourceType": "com.sis.onboarding.config.UIConfiguration"
+    }
+  ],
+  "hints": []
+}

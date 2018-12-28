@@ -31,6 +31,7 @@ hr {
 				On Boarding</h2>
 		</div>
 		<hr>
+		<div ng-controller="cidgetcontroller" class="col-sm-12">
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -41,10 +42,13 @@ hr {
 					<li class="active"><a href="/onboarding">EditUser</a></li>
 					<li><a href="/createrecord">CreateUser</a></li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+      				<li><a href="/"><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
+      				<li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    			</ul>
 			</div>
 		</nav>
-		<hr>
-		<div ng-controller="cidgetcontroller" class="col-sm-12">
+				<hr>
 			<form class="form-horizontal" name="cidForm"
 				ng-submit="getuserinfo()">
 				<div class="form-inline" style="border: thin">

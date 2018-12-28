@@ -1,12 +1,15 @@
 var app = angular.module('app', ['app1']);
 var app1 = angular.module('app1', []);
 var createApp = angular.module('createApp', []); // Used for Create page
+var loginApp = angular.module('loginApp', []);
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 // This controller is being used for dashboard page
 app1.controller('getalluserinfocontroller', function($scope, $http, $location, $window) {
 	$scope.getusersinfo = function(){
+		var user = $window.localStorage['user'];
+		$scope.user=user;
 		$scope.postResultMessageE ='';
 		$scope.postResultMessageS ='';
 		var url = $location.absUrl() + "/getallusersInfo";
@@ -28,6 +31,8 @@ app1.controller('getalluserinfocontroller', function($scope, $http, $location, $
 // This controller is being used for resource data display and edit
 app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
 	$scope.getuserinfo = function(){
+		var user = $window.localStorage['user'];
+		$scope.user=user;
 		var url = $location.absUrl() + "/getuserInfo/"+ $scope.cid;
 		$scope.postResultMessageE ='';
 		$scope.postResultMessageS ='';
@@ -51,6 +56,8 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
 	// Udate function to update the user information
 	
 	$scope.updateuserinfo = function(){
+		var user = $window.localStorage['user'];
+		$scope.user=user;
 		var url = $location.absUrl() + "/postcustomer";
 		$scope.postResultMessageE ='';
 		$scope.postResultMessageS ='';
@@ -105,14 +112,18 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
             governanceTool: $scope.response.governanceTool
             
         };
+		if(user=='admin'){
+			$http.put(url, resource, config).then(function (response) {
+				$scope.editing=false;
+				$scope.postResultMessageS = response.data;
+			}, function error(response) {
+				//alert(url);
+				$scope.postResultMessageE = response.data;
+			});
+		}else{
+			$scope.postResultMessageE = 'You can not update the record!';
+		}
 		
-		$http.put(url, resource, config).then(function (response) {
-			$scope.editing=false;
-			$scope.postResultMessageS = response.data;
-		}, function error(response) {
-			//alert(url);
-			$scope.postResultMessageE = response.data;
-		});
 		
 		$scope.firstname = "";
 		$scope.lastname = "";
@@ -120,8 +131,10 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
 	
 	// Reload User
 	$scope.reloaduserinfo= function(){
+		var user = $window.localStorage['user'];
 		$scope.postResultMessageE ='';
 		$scope.postResultMessageS ='';
+		$scope.user =user;
 		var cid= $window.localStorage['cid'];
 		if(cid){
 			var url = $location.absUrl() + "/getuserInfo/"+ cid;
@@ -146,6 +159,10 @@ app.controller('cidgetcontroller', function($scope, $http, $location, $window) {
 //This controller is being used to create the record
 createApp.controller('createcontroller', function($scope, $http, $location, $window) {
 	
+	$scope.getloggedInUser = function(){
+		var user = $window.localStorage['user'];
+		$scope.user=user;
+	}
 
 	$scope.createuserinfo = function(){
 		//alert($location.absUrl());
@@ -201,14 +218,51 @@ createApp.controller('createcontroller', function($scope, $http, $location, $win
 	            codingStd: $scope.response.codingStd,
 	            governanceTool: $scope.response.governanceTool
         };
+		var user = $window.localStorage['user'];
+		if(user=='user' || user=='admin'){
+			$http.post(url, resource, config).then(function (response) {
+				$scope.postResultMessageS = response.data;
+			}, function error(response) {
+				$scope.postResultMessageE = response.data;
+			});
+		}else{
+			$scope.postResultMessageE = 'Please login with correct credentials to create the record!'
+		}
 		
-		$http.post(url, resource, config).then(function (response) {
-			$scope.postResultMessageS = response.data;
-		}, function error(response) {
-			$scope.postResultMessageE = response.data;
-		});
 		
 		$scope.firstname = "";
 		$scope.lastname = "";
 	}
 });
+
+
+//============================================================LOGIN================================================================================================
+
+loginApp.controller('logincontroller', function($scope, $http, $location, $window) {
+	$scope.login = function(){
+		$scope.postResultMessage ='';
+		$scope.postResultMessageE='';
+		var uname= $scope.uname;
+		var password= $scope.password;
+		if(uname=='admin' && password=='admin'){
+			$scope.postResultMessage ='Success!!';
+			$scope.hide=true;
+			$window.localStorage['user'] = 'admin';
+		}else if(uname==password){
+			$scope.postResultMessage ='Success!!';
+			$scope.hide=true;
+			$window.localStorage['user'] = 'user';
+		}else{
+			$scope.postResultMessageE ='Please Enter Correct Username and Password!!';
+			$window.localStorage['user'] = 'guest';
+		}
+	}
+	
+	$scope.refresh = function(){
+		
+		$window.localStorage['user'] = 'guest';
+	}
+
+});
+
+//=================================================================================================================================================================

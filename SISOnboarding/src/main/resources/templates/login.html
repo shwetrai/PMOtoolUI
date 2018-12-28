@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+
+<html>
+<head>
+<title>SIS On-Boarding</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script .col-sm-3
+	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+<script src="/js/controller.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> -->
+
+<style>
+hr {
+	display: block;
+	margin-top: 1.5em;
+	margin-bottom: 1.5em;
+	margin-left: auto;
+	margin-right: auto;
+	border-style: inset;
+	border-width: 1px;
+}
+</style>
+</head>
+<body>
+	<div class="container" ng-app="loginApp">
+		<div class="col-sm-24" align="center">
+			<h2 style="color: blue">Welcome to Service Integration Squad -
+				On Boarding</h2>
+		</div>
+		<hr>
+
+		<div ng-controller="logincontroller" class="col-sm-12">
+
+			<div align="right">
+				<strong style="color: green"> {{postResultMessage}}</strong>
+			</div>
+			<div align="right">
+				<strong style="color: red"> {{postResultMessageE}}</strong>
+			</div>
+			<div class="col-sm-offset-0 col-sm-18" ng-hide="hide">
+
+				<form class="form-horizontal" name="loginForm" ng-submit="login()" ng-init="refresh()">
+
+					<table border="2" width="100%" class="table table-striped">
+						<tr>
+							<td bgcolor="lightgrey" align="center"><b>User Name: <font
+									color="red">*</font></b></td>
+							<td align="center"><input required="required" type="text"
+								class="inputbox form-control" name="uname" id="uname"
+								placeholder="Enter user name" ng-model="uname" /></td>
+
+						</tr>
+						<tr>
+							<td bgcolor="lightgrey" align="center"><b>Password <font
+									color="red">*</font></b></td>
+							<td align="center"><input required="required"
+								type="password" class="form-control" name="password"
+								id="password" placeholder="Enter password" ng-model="password" /></td>
+						</tr>
+						</table>
+						<div>
+							<button id="btn-id" type="submit" class="btn btn-info">Login</button>
+
+						</div>
+				</form>
+			</div>
+			<div class="col-sm-offset-0 col-sm-18" ng-show="hide">
+				Login is successful! Please <a
+					href="http://localhost:8080/createrecord">Click here</a> to create
+				record.
+			</div>
+
+			<hr />
+		</div>
+
+	</div>
+</body>
+</html>

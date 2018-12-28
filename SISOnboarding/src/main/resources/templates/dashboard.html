@@ -31,6 +31,7 @@ hr {
 				On Boarding</h2>
 		</div>
 		<hr>
+		<div ng-controller="getalluserinfocontroller" class="col-sm-12">
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -41,10 +42,14 @@ hr {
 					<li><a href="/onboarding">EditUser</a></li>
 					<li><a href="/createrecord">CreateUser</a></li>
 				</ul>
+				<ul class="nav navbar-nav navbar-right">
+      				<li><a href="/"><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
+      				<li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    			</ul>
 			</div>
 		</nav>
 		<hr>
-		<div ng-controller="getalluserinfocontroller" class="col-sm-12">
+
 			<form class="form-horizontal" name="usersForm"
 				ng-submit="getusersinfo()" ng-init="getusersinfo()">
 				<div class="form-inline" style="border: thin">

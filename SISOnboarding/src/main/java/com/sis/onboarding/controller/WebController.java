@@ -6,23 +6,44 @@ import org.springframework.web.bind.annotation.RequestMethod;
  
 @Controller
 public class WebController {
+	
+	public boolean isLoggedIn=false;  
+	
 	@RequestMapping(value="/",method = RequestMethod.GET)
     public String homepage(){
-        return "Index";
+		isLoggedIn=true; 
+        return "login";
     }
 	
 	@RequestMapping(value="/onboarding",method = RequestMethod.GET)
     public String onboardingpage(){
-        return "onboarding";
+		if(isLoggedIn)
+			return "onboarding";
+		else
+			return "redirect:/";
     }
 	
 	@RequestMapping(value="/onboarding/info",method = RequestMethod.GET)
     public String editpage(){
-        return "dashboard";
+		if(isLoggedIn)
+			return "dashboard";
+		else
+			return "redirect:/";
     }
 	
 	@RequestMapping(value="/createrecord",method = RequestMethod.GET)
     public String createpage(){
-        return "createRecord";
+		if(isLoggedIn)
+			return "createRecord";
+        else
+			return "redirect:/";
     }
+	
+//	@RequestMapping(value="/user/create",method = RequestMethod.GET)
+//    public String createpageUser(){
+//		if(isLoggedIn)
+//			return "createRecordUser";
+//        else
+//			return "redirect:/";
+//    }
 }

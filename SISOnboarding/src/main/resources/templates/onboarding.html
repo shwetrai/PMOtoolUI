@@ -38,13 +38,14 @@ hr {
 					<a class="navbar-brand" href="/onboarding/info">SIS Onboarding</a>
 				</div>
 				<ul class="nav navbar-nav">
-					<li><a href="/onboarding/info">Dashboard</a></li>
+					<li ng-if="user=='admin'"><a href="/onboarding/info">Dashboard</a></li>
 					<li class="active"><a href="/onboarding">EditUser</a></li>
 					<li><a href="/createrecord">CreateUser</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
       				<li><a href="/"><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
       				<li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      				<li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
     			</ul>
 			</div>
 		</nav>

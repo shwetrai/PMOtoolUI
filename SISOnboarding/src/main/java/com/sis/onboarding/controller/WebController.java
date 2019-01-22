@@ -3,8 +3,10 @@ package com.sis.onboarding.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
  
 @Controller
+@SessionAttributes("user")
 public class WebController {
 	
 	public boolean isLoggedIn=false;  
@@ -12,6 +14,12 @@ public class WebController {
 	@RequestMapping(value="/",method = RequestMethod.GET)
     public String homepage(){
 		isLoggedIn=true; 
+        return "login";
+    }
+	
+	@RequestMapping(value="/logout",method = RequestMethod.GET)
+    public String logoutpage(){
+		isLoggedIn=false; 
         return "login";
     }
 	

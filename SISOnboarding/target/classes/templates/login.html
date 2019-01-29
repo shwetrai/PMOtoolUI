@@ -5,7 +5,7 @@
 <title>SIS On-Boarding</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<script .col-sm-3
+<script 
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 <script src="/js/controller.js"></script>
 <link rel="stylesheet"
@@ -40,17 +40,17 @@ hr {
 			<div align="right">
 				<strong style="color: red"> {{postResultMessageE}}</strong>
 			</div>
-			<div class="col-sm-offset-05 col-sm-09" ng-hide="hide">
+			<div class="col-sm-offset-05 col-sm-05" ng-hide="hide">
 
 				<form class="form-horizontal" name="loginForm" ng-submit="login()" ng-init="refresh()">
 
-					<table border="2" width="100%" class="table table-striped">
+					<table border="2" width="50%" class="table table-striped">
 						<tr>
-							<td bgcolor="lightgrey" align="center"><b>User Name: <font
+							<td bgcolor="lightgrey" align="center"><b>CID:  <font
 									color="red">*</font></b></td>
 							<td align="center"><input required="required" type="text"
 								class="inputbox form-control" name="uname" id="uname"
-								placeholder="Enter user name" ng-model="uname" /></td>
+								placeholder="Enter CID" ng-model="uname" maxlength="8" pattern="(admin|[cC][0-9]*)" alt="CID Format: Cddddddd"/></td>
 
 						</tr>
 						<tr>
@@ -62,7 +62,11 @@ hr {
 						</tr>
 						</table>
 						<div>
-							<button id="btn-id" type="submit" class="btn btn-info">Login</button>
+							<input type="radio" ng-model="loginType" value="L"><font
+									color="blue">Login</font>
+  							<input type="radio" ng-model="loginType" value="S"><font
+									color="blue">SignUp</font>
+							<button id="btn-id" type="submit" class="btn btn-info">Submit</button>
 
 						</div>
 				</form>

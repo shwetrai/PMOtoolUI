@@ -22,34 +22,39 @@ hr {
 	border-style: inset;
 	border-width: 1px;
 }
+
 </style>
 </head>
-<body>
+<body style="background-color: light grey">
 	<div class="container" ng-app="createApp">
 		<div class="col-sm-24" align="center">
-			<h2 style="color: blue">Welcome to Service Integration Squad -
-				On Boarding</h2>
+			<img class="mt-0 mb-0" src="/images/IBM-LogoT.png" alt="" width="120"
+				height="50" align="right"> <img class="mt-0 mb-0"
+				src="/images/NBS_Logo.png" alt="" width="120" height="50"
+				align="left">
+			<h2 style="color: black">Service Integration Squad - On Boarding</h2>
 		</div>
 		<hr>
 		<div ng-controller="createcontroller" class="col-sm-12">
-		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="/onboarding/info">SIS Onboarding</a>
+			<nav class="navbar navbar-inverse">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="/onboarding/info">SIS Onboarding</a>
+					</div>
+					<ul class="nav navbar-nav">
+						<li ng-if="user=='admin'"><a href="/onboarding/info">Dashboard</a></li>
+						<li><a href="/onboarding">EditUser</a></li>
+						<li class="active"><a href="/createrecord">CreateUser</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/"><span class="glyphicon glyphicon-user"></span>
+								{{user}}</a></li>
+						<li><a href="/logout"><span
+								class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+					</ul>
 				</div>
-				<ul class="nav navbar-nav">
-					<li ng-if="user=='admin'"><a href="/onboarding/info">Dashboard</a></li>
-					<li><a href="/onboarding">EditUser</a></li>
-					<li class="active"><a href="/createrecord">CreateUser</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-      				<li><a href="/"><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
-      				<li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      				<li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-    			</ul>
-			</div>
-		</nav>
-		<hr>
+			</nav>
+			<hr>
 			<div class="col-sm-offset-0 col-sm-18">
 
 
@@ -69,66 +74,72 @@ hr {
 					<hr>
 					<table border="2" width="100%" class="table table-striped">
 						<tr>
-							<td align="left" colspan="4" class="bg-info text-white"><strong
-								style="color: blue">Basic Information</strong></td>
+							<td align="left" colspan="4" bgcolor="#2C2A2A"><strong
+								style="color: white">Basic Information</strong></td>
 						</tr>
 						<tr>
-							<td bgcolor="lightgrey" align="center"><b>CID <font color="red">*</font></b></td>
+							<td bgcolor="lightgrey" align="center"><b>CID <font
+									color="red">*</font></b></td>
 							<td align="center"><input required="required" type="text"
 								class="inputbox form-control" name="cid" id="CID"
 								placeholder="Enter resource CID" ng-model="response.cid" /></td>
-							<td bgcolor="lightgrey" align="center"><b>Name <font color="red">*</font></b></td>
-							<td align="center"><input required="required" type="text" class="form-control"
-								name="name" id="name" placeholder="Enter resource name"
-								ng-model="response.name" /></td>
+							<td bgcolor="lightgrey" align="center"><b>Name <font
+									color="red">*</font></b></td>
+							<td align="center"><input required="required" type="text"
+								class="form-control" name="name" id="name"
+								placeholder="Enter resource name" ng-model="response.name" /></td>
 						</tr>
 						<tr>
-							<td bgcolor="lightgrey" align="center"><b>Role <font color="red">*</font></b></td>
-							<td align="center"><input required="required" type="text" class="form-control"
-								name="role" id="role" placeholder="Enter resource role"
-								ng-model="response.role" /></td>
+							<td bgcolor="lightgrey" align="center"><b>Role <font
+									color="red">*</font></b></td>
+							<td align="center"><input required="required" type="text"
+								class="form-control" name="role" id="role"
+								placeholder="Enter resource role" ng-model="response.role" /></td>
 							<td align="center" bgcolor="lightgrey"><b>Band</b></td>
 							<td align="center"><input type="text" class="form-control"
 								name="band" id="band" placeholder="Enter resource band"
 								ng-model="response.band" /></td>
 						</tr>
 						<tr>
-							<td align="center" bgcolor="lightgrey"><b>Base Location <font color="red">*</font></b></td>
-							<td align="center"><input required="required" type="text" class="form-control"
-								name="blocation" id="blocation"
+							<td align="center" bgcolor="lightgrey"><b>Base Location
+									<font color="red">*</font>
+							</b></td>
+							<td align="center"><input required="required" type="text"
+								class="form-control" name="blocation" id="blocation"
 								placeholder="Enter resource base location"
 								ng-model="response.blocation" /></td>
 							<td align="center" bgcolor="lightgrey"><b>Current
-									Location <font color="red">*</font></b></td>
-							<td align="center"><input required="required" type="text" class="form-control"
-								name="clocation" id="clocation"
+									Location <font color="red">*</font>
+							</b></td>
+							<td align="center"><input required="required" type="text"
+								class="form-control" name="clocation" id="clocation"
 								placeholder="Enter resource current location"
 								ng-model="response.clocation" /></td>
 						</tr>
 						<tr>
 							<td align="center" bgcolor="lightgrey"><b>Rate</b></td>
-							<td align="center">
-								<input type="text" class="form-control"
+							<td align="center"><input type="text" class="form-control"
 								name="rate" id="rate" placeholder="Enter rate"
 								ng-model="response.rate" /></td>
-							<td align="center" bgcolor="lightgrey"><b>NBS Email ID <font color="red">*</font></b></td>
-							<td align="center">
-								<input required="required" type="email" class="form-control"
-								name="cell" id="nbsid" placeholder="Enter resource NBS Email Id"
+							<td align="center" bgcolor="lightgrey"><b>NBS Email ID <font
+									color="red">*</font></b></td>
+							<td align="center"><input required="required" type="email"
+								class="form-control" name="cell" id="nbsid"
+								placeholder="Enter resource NBS Email Id"
 								ng-model="response.nbsid" /></td>
 						</tr>
 						<tr>
-							<td align="center" bgcolor="lightgrey"><b>IBM Email ID <font color="red">*</font></b></td>
-							<td align="center">
-								<input required="required" type="email" class="form-control"
-								name="rate" id="ibmid" placeholder="Enter IBM Email Id"
-								ng-model="response.ibmid" /></td>
+							<td align="center" bgcolor="lightgrey"><b>IBM Email ID <font
+									color="red">*</font></b></td>
+							<td align="center"><input required="required" type="email"
+								class="form-control" name="rate" id="ibmid"
+								placeholder="Enter IBM Email Id" ng-model="response.ibmid" /></td>
 							<td align="center" bgcolor="lightgrey"><b></b></td>
 							<td align="center"></td>
 						</tr>
 						<tr>
-							<td align="left" colspan="4" class="bg-info text-white"><strong
-								style="color: blue">Tooling Status</strong></td>
+							<td align="left" colspan="4" bgcolor="#2C2A2A"><strong
+								style="color: white">Tooling Status</strong></td>
 						</tr>
 						<!---->
 						<tr>
@@ -173,8 +184,7 @@ hr {
 								name="jenkins" id="jenkins" placeholder="Enter resource jenkins"
 								ng-model="response.jenkins" /></td>
 							<td align="center" bgcolor="lightgrey"><b>ALM</b></td>
-							<td align="center">
-								<input type="text" class="form-control"
+							<td align="center"><input type="text" class="form-control"
 								name="alm" id="alm" placeholder="Enter resource alm"
 								ng-model="response.alm" /></td>
 						</tr>
@@ -219,8 +229,8 @@ hr {
 							<td align="center"></td>
 						</tr>
 						<tr>
-							<td align="left" colspan="4" class="bg-info text-white"><strong
-								style="color: blue">Induction Status</strong></td>
+							<td align="left" colspan="4" bgcolor="#2C2A2A"><strong
+								style="color: white">Induction Status</strong></td>
 						</tr>
 						<tr>
 							<td align="center" bgcolor="lightgrey"><b>Nationwide
@@ -228,7 +238,8 @@ hr {
 							<td align="center"><input type="text" class="form-control"
 								name="clientInd" id="clientInd" placeholder="Enter status"
 								ng-model="response.clientInd" /></td>
-							<td align="center" bgcolor="lightgrey"><b>SI Squad Induction</b></td>
+							<td align="center" bgcolor="lightgrey"><b>SI Squad
+									Induction</b></td>
 							<td align="center"><input type="text" class="form-control"
 								name="sisInd" id="sisInd" placeholder="Enter status"
 								ng-model="response.sisInd" /></td>
@@ -238,7 +249,8 @@ hr {
 							<td align="center"><input type="text" class="form-control"
 								name="arch" id="arch" placeholder="Enter resource arch"
 								ng-model="response.arch" /></td>
-							<td align="center" bgcolor="lightgrey"><b>Common Patterns</b></td>
+							<td align="center" bgcolor="lightgrey"><b>Common
+									Patterns</b></td>
 							<td align="center"><input type="text" class="form-control"
 								name="comPatterns" id="comPatterns" placeholder="Enter rstatus"
 								ng-model="response.comPatterns" /></td>
@@ -266,35 +278,42 @@ hr {
 								ng-model="response.agile" /></td>
 						</tr>
 						<tr>
-							<td align="center" bgcolor="lightgrey"><b>CI/ CD Overview</b></td>
+							<td align="center" bgcolor="lightgrey"><b>CI/ CD
+									Overview</b></td>
 							<td align="center"><input type="text" class="form-control"
-								name="cicd" id="cicd"
-								placeholder="Enter status Yes/No" ng-model="response.cicd" /></td>
+								name="cicd" id="cicd" placeholder="Enter status Yes/No"
+								ng-model="response.cicd" /></td>
 							<td align="center" bgcolor="lightgrey"><b>Build Process</b></td>
 							<td align="center"><input type="text" class="form-control"
-								name="buildProcess" id="buildProcess" placeholder="Enter status Yes/No"
+								name="buildProcess" id="buildProcess"
+								placeholder="Enter status Yes/No"
 								ng-model="response.buildProcess" /></td>
 						</tr>
 						<tr>
-							<td align="center" bgcolor="lightgrey"><b>Coding Standards</b></td>
+							<td align="center" bgcolor="lightgrey"><b>Coding
+									Standards</b></td>
 							<td align="center"><input type="text" class="form-control"
 								name="codingStd" id="codingStd"
 								placeholder="Enter status Yes/No" ng-model="response.codingStd" /></td>
-							<td align="center" bgcolor="lightgrey"><b>Centrasite/ Enterprise One</b></td>
+							<td align="center" bgcolor="lightgrey"><b>Centrasite/
+									Enterprise One</b></td>
 							<td align="center"><input type="text" class="form-control"
-								name="governanceTool" id="governanceTool" placeholder="Enter status Yes/No"
+								name="governanceTool" id="governanceTool"
+								placeholder="Enter status Yes/No"
 								ng-model="response.governanceTool" /></td>
 						</tr>
 						<tr>
-							<td align="left" colspan="4" class="bg-info text-white"><strong
-								style="color: blue">Assets Overview</strong></td>
+							<td align="left" colspan="4" bgcolor="#2C2A2A"><strong
+								style="color: white">Assets Overview</strong></td>
 						</tr>
 						<tr>
-							<td align="center" bgcolor="lightgrey"><b>Code Coverage/ Code Review</b></td>
+							<td align="center" bgcolor="lightgrey"><b>Code Coverage/
+									Code Review</b></td>
 							<td align="center"><input type="text" class="form-control"
 								name="codecov" id="codecov" placeholder="Enter status"
 								ng-model="response.codecov" /></td>
-							<td align="center" bgcolor="lightgrey"><b>Data Driven Testing</b></td>
+							<td align="center" bgcolor="lightgrey"><b>Data Driven
+									Testing</b></td>
 							<td align="center"><input type="text" class="form-control"
 								name="ddt" id="ddt" placeholder="Enter status"
 								ng-model="response.ddt" /></td>
@@ -305,16 +324,19 @@ hr {
 							<td align="center"><input type="text" class="form-control"
 								name="logfram" id="logfram" placeholder="Enter status"
 								ng-model="response.logfram" /></td>
-							<td align="center" bgcolor="lightgrey"><b>Rest Code Generator</b></td>
+							<td align="center" bgcolor="lightgrey"><b>Rest Code
+									Generator</b></td>
 							<td align="center"><input type="text" class="form-control"
 								name="esqlGen" id="esqlGen" placeholder="Enter status"
 								ng-model="response.esqlGen" /></td>
 						</tr>
 					</table>
-					<hr><div class="col-sm-18">
-					<strong style="color: blue">Add Comments: </strong><input type="text" class="form-control" name="comments" id="comments"
-						ng-model="response.comments">	
-						</div>
+					<hr>
+					<div class="col-sm-18">
+						<strong style="color: blue">Add Comments: </strong><input
+							type="text" class="form-control" name="comments" id="comments"
+							ng-model="response.comments">
+					</div>
 
 				</form>
 

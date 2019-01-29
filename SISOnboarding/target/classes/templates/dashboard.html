@@ -27,73 +27,78 @@ hr {
 <body>
 	<div class="container" ng-app="app1">
 		<div class="col-sm-24" align="center">
-			<h2 style="color: blue">Welcome to Service Integration Squad -
-				On Boarding</h2>
+			<img class="mt-0 mb-0" src="/images/IBM-LogoT.png" alt="" width="120"
+				height="50" align="right"> <img class="mt-0 mb-0"
+				src="/images/NBS_Logo.png" alt="" width="120" height="50"
+				align="left">
+			<h2 style="color: black">Service Integration Squad - On Boarding</h2>
 		</div>
 		<hr>
 		<div ng-controller="getalluserinfocontroller" class="col-sm-12">
-		<nav class="navbar navbar-inverse">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="/onboarding/info">SIS Onboarding</a>
+			<nav class="navbar navbar-inverse">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand" href="/onboarding/info">SIS Onboarding</a>
+					</div>
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="/onboarding/info">Dashboard</a></li>
+						<li><a href="/onboarding">EditUser</a></li>
+						<li><a href="/createrecord">CreateUser</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li><a href="/"><span class="glyphicon glyphicon-user"></span>
+								{{user}}</a></li>
+						<li><a href="/logout"><span
+								class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+					</ul>
 				</div>
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="/onboarding/info">Dashboard</a></li>
-					<li><a href="/onboarding">EditUser</a></li>
-					<li><a href="/createrecord">CreateUser</a></li>
-				</ul>
-				<ul class="nav navbar-nav navbar-right">
-      				<li><a href="/"><span class="glyphicon glyphicon-user"></span> {{user}}</a></li>
-      				<li><a href="/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      				<li><a href="/logout"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-    			</ul>
-			</div>
-		</nav>
-		<hr>
+			</nav>
+			<hr>
 
 			<form class="form-horizontal" name="usersForm"
 				ng-submit="getusersinfo()" ng-init="getusersinfo()">
 				<div class="form-inline" style="border: thin">
 					<div align="right">
 						<button id="btn-id" type="submit" class="btn btn-primary">Refresh</button>
-					</div>				<div class="col-sm10">
-					<p class="bg-success text-white"></p>
+					</div>
+					<div class="col-sm10">
+						<p class="bg-success text-white"></p>
+					</div>
 				</div>
-				</div>
-			
-			<hr />
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>CID</th>
-						<th>Tooling Status</th>
-						<th>Induction Status<postResultMessage/th>
-						<th>Asset Overview</th>
-					</tr>
-				</thead>
-				<tbody ng-repeat="item in response">
-					<tr>
-						<td>{{item.name}}</td>
-						<td>{{item.cid}}</td>
-						<td>{{item.toolingStatus}}</td>
-						<td>{{item.inductionStatus}}</td>
-						<td>{{item.assetOverview}}</td>
-						<td ng-click="edit(item.cid)"><a href="../onboarding">Edit</a></td>
-					</tr>
-				</tbody>
-			</table>
-			{{postResultMessage}}
-			<!--<p> {{"CID: " +response.cid }}</p>
+
+				<hr />
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>CID</th>
+							<th>Tooling Status</th>
+							<th>Induction Status<postResultMessage /th>
+								<th>Asset Overview</th>
+						</tr>
+					</thead>
+					<tbody ng-repeat="item in response">
+						<tr>
+							<td>{{item.name}}</td>
+							<td>{{item.cid}}</td>
+							<td>{{item.toolingStatus}}</td>
+							<td>{{item.inductionStatus}}</td>
+							<td>{{item.assetOverview}}</td>
+							<td ng-click="edit(item.cid)"><a href="../onboarding">Edit</a></td>
+						</tr>
+					</tbody>
+				</table>
+				{{postResultMessage}}
+				<!--<p> {{"CID: " +response.cid }}</p>
 			<p>{{" Role: "+response.role}}</p>
 			<p>{{" Name: "+response.name}}</p>-->
 			</form>
-			</div>
-			
-		<hr/>
 		</div>
 
-		<!-- <div class="col-sm-offset-2 col-sm-10" ng-controller="getcontroller">
+		<hr />
+	</div>
+
+	<!-- <div class="col-sm-offset-2 col-sm-10" ng-controller="getcontroller">
 		<button id="btn-id" type="button" class="btn btn-primary" ng-click="getfunction()">Get All Resources</button>
 		<ul>
         	<li ng-repeat="cust in response">{{cust.firstname + " " + cust.lastname}}</li>

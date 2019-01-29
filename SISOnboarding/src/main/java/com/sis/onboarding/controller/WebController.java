@@ -14,13 +14,13 @@ public class WebController {
 	@RequestMapping(value="/",method = RequestMethod.GET)
     public String homepage(){
 		isLoggedIn=true; 
-        return "login";
+        return "loginNew";
     }
 	
 	@RequestMapping(value="/logout",method = RequestMethod.GET)
     public String logoutpage(){
 		isLoggedIn=false; 
-        return "login";
+        return "redirect:/";
     }
 	
 	@RequestMapping(value="/onboarding",method = RequestMethod.GET)

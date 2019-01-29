@@ -9,9 +9,12 @@ com/sis/onboarding/beans/Roles.class
 com/sis/onboarding/model/ResourceStatus.class
 com/sis/onboarding/controller/RestWebController.class
 com/sis/onboarding/config/UIConfiguration.class
+com/sis/onboarding/util/Util.class
 META-INF/spring-configuration-metadata.json
 com/sis/onboarding/beans/ResourceStatusDTO.class
+com/sis/onboarding/db/UserAuth.class
 com/sis/onboarding/beans/ResourceDTO.class
 com/sis/onboarding/controller/RestWebController$1.class
+com/sis/onboarding/db/UserAuthRepository.class
 com/sis/onboarding/beans/Cells.class
 com/sis/onboarding/beans/ToolingActivity.class
